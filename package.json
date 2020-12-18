@@ -3,10 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint"
+    "start:lib": "ng run ngx-social-auth:build --watch",
+    "start:demo": "ng run ngx-social-auth-demo:serve --host 0.0.0.0 -o --disable-host-check",
+    "test:lib": "ng run ngx-social-auth:test --watch=false",
+    "test:demo": "ng run ngx-social-auth-demo:test --watch=false",
+    "lint:lib": "ng run ngx-social-auth:lint",
+    "lint:demo": "ng run ngx-social-auth-demo:lint",
+    "build:lib:prod": "npm run test:lib && ng run ngx-social-auth:build:production",
+    "build:demo:prod": "npm run build:lib:prod && npm run test:demo && ng run ngx-social-auth-demo:build:production"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +27,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1100.5",
     "@angular/cli": "~11.0.5",
     "@angular/compiler-cli": "~11.0.5",
     "@types/jasmine": "~3.6.0",
@@ -35,6 +40,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^11.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

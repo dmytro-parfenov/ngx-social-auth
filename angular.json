@@ -3,5 +3,215 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-social-auth": {
+      "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/ngx-social-auth",
+      "sourceRoot": "projects/ngx-social-auth/src",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-social-auth/tsconfig.lib.json",
+            "project": "projects/ngx-social-auth/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-social-auth/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-social-auth/src/test.ts",
+            "tsConfig": "projects/ngx-social-auth/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-social-auth/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-social-auth/tsconfig.lib.json",
+              "projects/ngx-social-auth/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-social-auth-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/ngx-social-auth-demo",
+      "sourceRoot": "projects/ngx-social-auth-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-social-auth-demo",
+            "index": "projects/ngx-social-auth-demo/src/index.html",
+            "main": "projects/ngx-social-auth-demo/src/main.ts",
+            "polyfills": "projects/ngx-social-auth-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-social-auth-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/ngx-social-auth-demo/src/favicon.ico",
+              "projects/ngx-social-auth-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-social-auth-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-social-auth-demo/src/environments/environment.ts",
+                  "with": "projects/ngx-social-auth-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-social-auth-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-social-auth-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-social-auth-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-social-auth-demo/src/test.ts",
+            "polyfills": "projects/ngx-social-auth-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-social-auth-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-social-auth-demo/karma.conf.js",
+            "assets": [
+              "projects/ngx-social-auth-demo/src/favicon.ico",
+              "projects/ngx-social-auth-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-social-auth-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-social-auth-demo/tsconfig.app.json",
+              "projects/ngx-social-auth-demo/tsconfig.spec.json",
+              "projects/ngx-social-auth-demo/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngx-social-auth-demo/e2e/protractor.conf.js",
+            "devServerTarget": "ngx-social-auth-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-social-auth-demo:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-social-auth"
 }
