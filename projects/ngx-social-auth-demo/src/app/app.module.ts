@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import {NgxSocialAuthModule} from 'ngx-social-auth';
+import {AppComponent} from './app.component';
+import {SocialAuthModule} from 'ngx-social-auth';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,7 @@ import {NgxSocialAuthModule} from 'ngx-social-auth';
   ],
   imports: [
     BrowserModule,
-    NgxSocialAuthModule
+    SocialAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
