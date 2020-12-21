@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {SocialAuthProvider} from '../social-auth-provider';
 import {SocialAuthProviderType} from '../../social-auth-provider-type.enum';
-import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
+import {BehaviorSubject, EMPTY, Observable, of, throwError} from 'rxjs';
 import {MICROSOFT_AUTH_CONFIG} from './microsoft-auth-config.key';
 import {MicrosoftAuthConfig, MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './microsoft-auth';
 import {SocialAuthResponse} from '../../social-auth-response';
@@ -34,7 +34,14 @@ export class MicrosoftAuthProviderService implements
 
   singIn(options?: MicrosoftAuthSignInOptions): Observable<SocialAuthResponse> {
     return this.getMsalInstance().pipe(
-      switchMap(msalInstance => fromPromise(msalInstance.loginPopup(options))),
+      switchMap(msalInstance => {
+        if (options?.isLoginRedirect) {
+          msalInstance.loginRedirect(options);
+          return EMPTY;
+        }
+
+        return fromPromise(msalInstance.loginPopup(options));
+      }),
       map(credentials => ({credentials}))
     );
   }
