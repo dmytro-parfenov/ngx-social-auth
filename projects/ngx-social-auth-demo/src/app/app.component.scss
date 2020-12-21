@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+
+section {
+  padding: 16px;
+  animation: fade-id 0.2s ease-in;
+}
+
+@keyframes fade-id {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.authenticated {
+  display: flex;
+  align-items: center;
+
+  .action {
+    margin-right: 16px;
+  }
+
+  .state-icon {
+    color: mat-color(mat-palette($mat-green));
+  }
+}

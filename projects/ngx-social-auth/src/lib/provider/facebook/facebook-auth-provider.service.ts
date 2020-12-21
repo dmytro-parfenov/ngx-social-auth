@@ -71,7 +71,7 @@ export class FacebookAuthProviderService implements
     const authResponse = response.authResponse;
 
     if (response.status !== 'connected' || !authResponse) {
-      return throwError('User is not authorized');
+      return throwError('Facebook user is not authorized');
     }
 
     return of(authResponse);

@@ -10,6 +10,7 @@
     "types": [
       "./src/lib/provider/facebook/facebook-auth-typings",
       "./src/lib/provider/google/google-auth-typings",
+      "./src/lib/provider/microsoft/microsoft-auth-typings",
     ],
     "lib": [
       "dom",

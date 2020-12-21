@@ -1,1 +1,11 @@
+<section *ngFor="let providerKey of providersKeys">
+  <ng-container [ngSwitch]="isAuthenticated(providerKey)">
+    <div class="authenticated" *ngSwitchCase="true">
+      <button mat-raised-button (click)="signOut(providerKey)" class="action">Sign out from {{providerKey}}</button>
+      <mat-icon aria-hidden="false" aria-label="check" class="state-icon">check_circle</mat-icon>
+    </div>
+
+    <button mat-raised-button *ngSwitchDefault (click)="signIn(providerKey)">Sign in with {{providerKey}}</button>
+  </ng-container>
+</section>
 

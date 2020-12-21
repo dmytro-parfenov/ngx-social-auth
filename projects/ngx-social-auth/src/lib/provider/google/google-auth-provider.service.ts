@@ -2,7 +2,7 @@ import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {SocialAuthProvider} from '../social-auth-provider';
 import {GOOGLE_AUTH_CONFIG} from './google-auth-config.key';
 import {fromPromise} from 'rxjs/internal-compatibility';
-import {catchError, first, map, mergeMap, skipWhile, switchMap, tap} from 'rxjs/operators';
+import {catchError, first, mergeMap, skipWhile, switchMap, tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {SocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {SocialAuthResponse} from '../../social-auth-response';
@@ -51,7 +51,7 @@ export class GoogleAuthProviderService implements
 
     return this.getGoogleAuth().pipe(
       switchMap(googleAuth => fromPromise(googleAuth.signIn(options))),
-      map<any, SocialAuthResponse>(googleUser => this.fromGoogleUser(googleUser, includeAuthorizationData))
+      switchMap(googleUser => this.fromGoogleUser(googleUser, includeAuthorizationData))
     );
   }
 
@@ -64,17 +64,29 @@ export class GoogleAuthProviderService implements
   getState(options?: GoogleAuthStateOptions): Observable<SocialAuthResponse> {
     return this.getGoogleAuth().pipe(
       switchMap(googleAuth => of(googleAuth.currentUser.get())),
-      map<any, SocialAuthResponse>(googleUser => this.fromGoogleUser(googleUser, options))
+      switchMap(googleUser => this.fromGoogleUser(googleUser, options))
     );
   }
 
   /**
    * Returns generic auth response object based on google user
    */
-  private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): SocialAuthResponse {
+  private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): Observable<SocialAuthResponse> {
     const credentials = googleUser.getAuthResponse(includeAuthorizationData);
 
-    return {credentials};
+    if (this.isValidCredentials(credentials)) {
+      return of<SocialAuthResponse>({credentials});
+    }
+
+    return throwError('Google user is not authorized');
+  }
+
+  private isValidCredentials(credentials: any): boolean {
+    try {
+      return Object.keys(credentials).length > 0;
+    } catch (e) {
+      return false;
+    }
   }
 
   private getGoogleAuth(): Observable<any> {
