@@ -1,5 +1,5 @@
 /**
- * @see https://developers.facebook.com/docs/javascript/reference/FB.init/v6.0
+ * @see https://developers.facebook.com/docs/javascript/reference/FB.init/v9.0
  */
 export interface FacebookAuthConfig {
   version: string;
@@ -18,7 +18,7 @@ export interface FacebookAuthConfig {
 }
 
 /**
- * @see https://developers.facebook.com/docs/reference/javascript/FB.login/v6.0#options
+ * @see https://developers.facebook.com/docs/reference/javascript/FB.login/v9.0#options
  */
 export interface FacebookAuthSignInOptions {
   auth_type?: string;
