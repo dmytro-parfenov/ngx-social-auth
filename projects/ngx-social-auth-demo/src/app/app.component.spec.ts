@@ -43,6 +43,10 @@ describe('AppComponent', () => {
     expect(component.isAuthenticated(NgxSocialAuthProviderType.Google)).toBeFalse();
   });
 
+  it('should get auth state through the auth service', () => {
+    expect(socialAuthServiceSpy.getState).toHaveBeenCalled();
+  });
+
   it('should sign in through the auth service', () => {
     component.signIn(NgxSocialAuthProviderType.Google);
 
