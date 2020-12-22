@@ -61,14 +61,13 @@ export class MicrosoftAuthStrategyService implements
     }
 
     return this.getMsalInstance().pipe(
-      switchMap(msalInstance => {
+      switchMap(msalInstance => this.loadWithAccount(msalInstance)),
+      switchMap(msalWithAccount => {
         if (!options?.account) {
-          const accounts = msalInstance.getAllAccounts() || [];
-          const account = accounts.length > 0 ? accounts[0] : null;
-          options = {...options, account};
+          options = {...options, account: msalWithAccount.account};
         }
 
-        return fromPromise(msalInstance.acquireTokenSilent(options));
+        return fromPromise(msalWithAccount.instance.acquireTokenSilent(options));
       }),
       map(credentials => ({providerResponse: credentials}))
     );
@@ -119,5 +118,30 @@ export class MicrosoftAuthStrategyService implements
     } catch (e) {
       return throwError('Unable to create Msal instance');
     }
+  }
+
+  /**
+   * Load Msal instance with current account
+   *
+   * @param instance Msal instance
+   */
+  private loadWithAccount(instance: any): Observable<{ instance: any, account: any }> {
+    const accounts = instance.getAllAccounts() || [];
+    const currentAccount = accounts.length > 0 ? accounts[0] : null;
+
+    const fromMsalInstance$ = of(currentAccount);
+
+    /**
+     * Used to handle the account after login redirect
+     */
+    const fromRedirect$ = fromPromise(instance.handleRedirectPromise()).pipe(
+      map((response: any) => response?.account ?? null),
+      catchError(() => of(null))
+    );
+
+    return fromMsalInstance$.pipe(
+      switchMap(account => account ? of(account) : fromRedirect$),
+      map(account => ({instance, account}))
+    );
   }
 }
