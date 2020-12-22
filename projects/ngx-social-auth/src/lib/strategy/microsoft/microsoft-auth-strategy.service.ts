@@ -19,7 +19,7 @@ import {MicrosoftAuthConfig, MicrosoftAuthSignInOptions, MicrosoftAuthStateOptio
 export class MicrosoftAuthStrategyService implements
   SocialAuthStrategy<MicrosoftAuthSignInOptions, MicrosoftAutSignOutOptions, MicrosoftAuthStateOptions> {
 
-  private readonly APIUrl = 'https://alcdn.msauth.net/lib/1.4.4/js/msal.min.js';
+  private readonly APIUrl = 'https://alcdn.msauth.net/browser/2.8.0/js/msal-browser.min.js';
 
   /**
    * A behaviour subject that emits Msal instance
@@ -61,7 +61,15 @@ export class MicrosoftAuthStrategyService implements
     }
 
     return this.getMsalInstance().pipe(
-      switchMap(msalInstance => fromPromise(msalInstance.acquireTokenSilent(options))),
+      switchMap(msalInstance => {
+        if (!options?.account) {
+          const accounts = msalInstance.getAllAccounts() || [];
+          const account = accounts.length > 0 ? accounts[0] : null;
+          options = {...options, account};
+        }
+
+        return fromPromise(msalInstance.acquireTokenSilent(options));
+      }),
       map(credentials => ({credentials}))
     );
   }
@@ -82,12 +90,12 @@ export class MicrosoftAuthStrategyService implements
     );
   }
 
-  private handleMsalInstance(salInstance: any): void {
+  private handleMsalInstance(msalInstance: any): void {
     if (!this.msalInstance$$) {
       return;
     }
 
-    this.msalInstance$$.next(salInstance);
+    this.msalInstance$$.next(msalInstance);
   }
 
   private handleMsalInstanceError(error: any): Observable<never> {
@@ -107,7 +115,7 @@ export class MicrosoftAuthStrategyService implements
 
   private createMsalInstance(): Observable<any> {
     try {
-      return of(new Msal.UserAgentApplication(this.configuration));
+      return of(new msal.PublicClientApplication(this.configuration));
     } catch (e) {
       return throwError('Unable to create Msal instance');
     }

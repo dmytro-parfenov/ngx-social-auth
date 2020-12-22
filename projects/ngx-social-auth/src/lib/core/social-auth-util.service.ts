@@ -25,7 +25,7 @@ export class SocialAuthUtilService {
    * Details {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script}
    * @param append where the script will appended
    */
-  loadScript(attributes: {src: string, [key: string]: any}, append: 'head' | 'body'): Observable<Event | never> {
+  loadScript(attributes: {src: string, [key: string]: any}, append: 'head' | 'body'): Observable<Event> {
     const script = this.document.createElement('script');
 
     Object.keys(attributes).forEach(key => this.renderer.setAttribute(script, key, attributes[key]));
