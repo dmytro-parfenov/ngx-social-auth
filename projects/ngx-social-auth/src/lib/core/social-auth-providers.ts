@@ -1,3 +1,7 @@
+/**
+ * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
+ */
+
 import {NgxSocialAuthProvider} from '../social-auth-provider';
 import {Provider} from '@angular/core';
 import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';

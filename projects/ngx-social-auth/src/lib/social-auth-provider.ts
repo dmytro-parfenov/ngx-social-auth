@@ -5,6 +5,8 @@ import {MicrosoftAuthConfig} from './strategy/microsoft/microsoft';
 
 /**
  * Class that allows to create specific auth provider
+ *
+ * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 export class NgxSocialAuthProvider {
   constructor(type: NgxSocialAuthProviderType.Google, config: GoogleAuthConfig)

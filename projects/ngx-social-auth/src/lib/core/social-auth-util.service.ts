@@ -6,6 +6,8 @@ import {mergeMap, take} from 'rxjs/operators';
 /**
  * @dynamic
  * @see https://angular.io/guide/angular-compiler-options#strictmetadataemit
+ *
+ * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 @Injectable({
   providedIn: 'root'

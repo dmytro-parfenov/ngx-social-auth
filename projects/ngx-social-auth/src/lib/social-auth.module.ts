@@ -5,6 +5,8 @@ import {fromSocialAuthProviders} from './core/social-auth-providers';
 
 /**
  * Allows to authenticate the user by using different social providers
+ *
+ * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 @NgModule()
 export class NgxSocialAuthModule {
