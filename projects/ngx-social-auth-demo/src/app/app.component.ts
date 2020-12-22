@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {of, throwError} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -11,65 +12,79 @@ import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth';
 })
 export class AppComponent implements OnInit {
 
-  readonly providers = new Map<NgxSocialAuthProviderType, { isAuthenticated: boolean }>();
-
-  get providersKeys(): NgxSocialAuthProviderType[] {
-    return Array.from(this.providers.keys());
-  }
+  readonly socialAuthProviders = new Map<NgxSocialAuthProviderType, { isAuthenticated: boolean }>();
 
   constructor(private readonly ngxSocialAuthService: NgxSocialAuthService,
               private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    (Object.keys(NgxSocialAuthProviderType) as NgxSocialAuthProviderType[]).forEach((value) => {
-      this.ngxSocialAuthService.getState(value).pipe(
-        catchError((error: any) => {
-          console.error(error);
-          return throwError(error);
-        }),
-        tap(authResponse => {
-          console.log(`Signed in with '${NgxSocialAuthProviderType[value]}'`, authResponse);
-        }),
-        map(authResponse => !!authResponse),
-        catchError(() => of(false)),
-        tap(isAuthenticated => {
-          this.providers.set(value, {isAuthenticated});
-          this.changeDetectorRef.detectChanges();
-        })
-      ).subscribe();
-    });
+    this.loadAuthState();
   }
 
   isAuthenticated(type: NgxSocialAuthProviderType): boolean {
-    return !!this.providers.get(type)?.isAuthenticated;
+    return !!this.socialAuthProviders.get(type)?.isAuthenticated;
   }
 
   signIn(type: NgxSocialAuthProviderType): void {
     this.ngxSocialAuthService.signIn(type).pipe(
-      catchError((error: any) => {
-        console.error(error);
-        return throwError(error);
-      }),
-      tap(authResponse => {
-        this.providers.set(type, { isAuthenticated: true });
-        this.changeDetectorRef.detectChanges();
-        console.log(`Signed in with '${NgxSocialAuthProviderType[type]}'`, authResponse);
-      })
+      catchError(this.handleError.bind(this)),
+      tap(authResponse => this.onSignIn(type, authResponse))
     ).subscribe();
   }
 
   signOut(type: NgxSocialAuthProviderType): void {
     this.ngxSocialAuthService.signOut(type).pipe(
-      catchError((error: any) => {
-        console.error(error);
-        return throwError(error);
-      }),
-      tap(() => {
-        this.providers.set(type, { isAuthenticated: false });
-        this.changeDetectorRef.detectChanges();
-        console.log(`Signed out from '${NgxSocialAuthProviderType[type]}'`);
-      })
+      catchError(this.handleError.bind(this)),
+      tap(() => this.onSignOut(type))
     ).subscribe();
+  }
+
+  private loadAuthState(): void {
+    const socialAuthProviderTypes = Object.keys(NgxSocialAuthProviderType) as NgxSocialAuthProviderType[];
+
+    socialAuthProviderTypes.forEach((value) => {
+      this.ngxSocialAuthService.getState(value).pipe(
+        catchError(this.handleError.bind(this)),
+        map(authResponse => !!authResponse),
+        catchError(() => of(false)),
+        tap(isAuthenticated => this.onGetState(value, isAuthenticated))
+      ).subscribe();
+    });
+  }
+
+  private onGetState(type: NgxSocialAuthProviderType, isAuthenticated: boolean): void {
+    this.socialAuthProviders.set(type, {isAuthenticated});
+    this.changeDetectorRef.detectChanges();
+
+    if (!environment.production) {
+      console.log(`Auth state for '${NgxSocialAuthProviderType[type]}' is ${isAuthenticated}`);
+    }
+  }
+
+  private onSignIn(type: NgxSocialAuthProviderType, authResponse: any): void {
+    this.socialAuthProviders.set(type, { isAuthenticated: true });
+    this.changeDetectorRef.detectChanges();
+
+    if (!environment.production) {
+      console.log(`Signed in with '${NgxSocialAuthProviderType[type]}'`, authResponse);
+    }
+  }
+
+  private onSignOut(type: NgxSocialAuthProviderType): void {
+    this.socialAuthProviders.set(type, { isAuthenticated: false });
+    this.changeDetectorRef.detectChanges();
+
+    if (!environment.production) {
+      console.log(`Signed out from '${NgxSocialAuthProviderType[type]}'`);
+    }
+  }
+
+  private handleError(error: any): Observable<never> {
+    if (!environment.production) {
+      console.error(error);
+    }
+
+    return throwError(error);
   }
 }
