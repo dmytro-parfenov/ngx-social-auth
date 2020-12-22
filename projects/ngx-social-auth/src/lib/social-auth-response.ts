@@ -1,8 +1,8 @@
 /* tslint:disable:max-line-length */
 /**
- * Represents an object contains auth data
+ * Represents an object contains auth response
  */
-export interface NgxSocialAuthResponse<C = any> {
+export interface NgxSocialAuthResponse<R = any> {
   /**
    * Possible responses
    *
@@ -12,5 +12,5 @@ export interface NgxSocialAuthResponse<C = any> {
    *
    * For {@link NgxSocialAuthProviderType.Microsoft} - see {@link https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-common/classes/_src_response_authenticationresult_.authenticationresult.html}
    */
-  credentials: C;
+  providerResponse: R;
 }

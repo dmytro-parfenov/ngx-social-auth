@@ -77,7 +77,7 @@ export class GoogleAuthStrategyService implements
     const credentials = googleUser.getAuthResponse(includeAuthorizationData);
 
     if (this.isValidCredentials(credentials)) {
-      return of<NgxSocialAuthResponse>({credentials});
+      return of<NgxSocialAuthResponse>({providerResponse: credentials});
     }
 
     return throwError('Google user is not authorized');

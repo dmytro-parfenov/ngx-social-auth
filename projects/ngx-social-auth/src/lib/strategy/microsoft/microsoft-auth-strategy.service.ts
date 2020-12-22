@@ -44,7 +44,7 @@ export class MicrosoftAuthStrategyService implements
 
         return fromPromise(msalInstance.loginPopup(options));
       }),
-      map(credentials => ({credentials}))
+      map(credentials => ({providerResponse: credentials}))
     );
   }
 
@@ -70,7 +70,7 @@ export class MicrosoftAuthStrategyService implements
 
         return fromPromise(msalInstance.acquireTokenSilent(options));
       }),
-      map(credentials => ({credentials}))
+      map(credentials => ({providerResponse: credentials}))
     );
   }
 

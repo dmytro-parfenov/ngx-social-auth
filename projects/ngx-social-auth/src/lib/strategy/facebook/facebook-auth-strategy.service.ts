@@ -47,7 +47,7 @@ export class FacebookAuthStrategyService implements
     return this.onFacebookInstanceReady().pipe(
       mergeMap(() => this.callFunction('login', options)),
       mergeMap(this.fromAuthResponse.bind(this)),
-      map(credentials => ({credentials}))
+      map(credentials => ({providerResponse: credentials}))
     );
   }
 
@@ -61,7 +61,7 @@ export class FacebookAuthStrategyService implements
     return this.onFacebookInstanceReady().pipe(
       mergeMap(() => this.callFunction('status', options)),
       mergeMap(this.fromAuthResponse.bind(this)),
-      map(credentials => ({credentials}))
+      map(credentials => ({providerResponse: credentials}))
     );
   }
 
