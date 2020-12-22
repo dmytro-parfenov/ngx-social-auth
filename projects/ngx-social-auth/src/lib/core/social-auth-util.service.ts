@@ -3,6 +3,10 @@ import {DOCUMENT} from '@angular/common';
 import {fromEvent, merge, Observable, throwError} from 'rxjs';
 import {mergeMap, take} from 'rxjs/operators';
 
+/**
+ * @dynamic
+ * @see https://angular.io/guide/angular-compiler-options#strictmetadataemit
+ */
 @Injectable({
   providedIn: 'root'
 })
