@@ -4,7 +4,7 @@ import {SocialAuthStrategy} from '../social-auth-strategy';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
-import {catchError, first, map, mergeMap, skipWhile, tap} from 'rxjs/operators';
+import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {NgxSocialAuthResponse} from '../../social-auth-response';
 import {FacebookAuthConfig, FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './facebook';
 
@@ -45,22 +45,22 @@ export class FacebookAuthStrategyService implements
 
   singIn(options?: FacebookAuthSignInOptions): Observable<NgxSocialAuthResponse> {
     return this.onFacebookInstanceReady().pipe(
-      mergeMap(() => this.callFunction('login', options)),
-      mergeMap(this.fromAuthResponse.bind(this)),
+      switchMap(() => this.callFunction('login', options)),
+      switchMap(this.fromAuthResponse.bind(this)),
       map(credentials => ({providerResponse: credentials}))
     );
   }
 
   signOut(): Observable<void> {
     return this.onFacebookInstanceReady().pipe(
-      mergeMap(() => this.callFunction('logout'))
+      switchMap(() => this.callFunction('logout'))
     );
   }
 
   getState(options?: FacebookAuthStateOptions): Observable<NgxSocialAuthResponse> {
     return this.onFacebookInstanceReady().pipe(
-      mergeMap(() => this.callFunction('status', options)),
-      mergeMap(this.fromAuthResponse.bind(this)),
+      switchMap(() => this.callFunction('status', options)),
+      switchMap(this.fromAuthResponse.bind(this)),
       map(credentials => ({providerResponse: credentials}))
     );
   }
@@ -115,8 +115,7 @@ export class FacebookAuthStrategyService implements
     if (this.facebookInstanceReady$) {
       return this.facebookInstanceReady$.asObservable().pipe(
         skipWhile(isReady => !isReady),
-        mergeMap(() => of(null)),
-        first(),
+        take(1)
       );
     }
 
@@ -124,7 +123,6 @@ export class FacebookAuthStrategyService implements
 
     return this.loadFacebookInstance().pipe(
       tap(this.handleFacebookInstanceReady.bind(this)),
-      mergeMap(() => of(null)),
       catchError(this.handleFacebookInstanceError.bind(this))
     );
   }

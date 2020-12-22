@@ -2,7 +2,7 @@ import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {SocialAuthStrategy} from '../social-auth-strategy';
 import {GOOGLE_AUTH_CONFIG} from './google-auth-config.token';
 import {fromPromise} from 'rxjs/internal-compatibility';
-import {catchError, first, mergeMap, skipWhile, switchMap, tap} from 'rxjs/operators';
+import {catchError, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {NgxSocialAuthResponse} from '../../social-auth-response';
@@ -95,7 +95,7 @@ export class GoogleAuthStrategyService implements
     if (this.googleAuth$) {
       return this.googleAuth$.asObservable().pipe(
         skipWhile(googleAuth => !googleAuth),
-        first()
+        take(1)
       );
     }
 
@@ -126,8 +126,8 @@ export class GoogleAuthStrategyService implements
   private loadAuthInstance(): Observable<any> {
     return this.socialAuthUtilsService.loadScript({src: this.APIUrl, async: true, defer: true}, 'body')
       .pipe(
-        mergeMap(() => this.loadAuthApi(gapi)),
-        mergeMap(auth2 => this.initAuthApi(auth2))
+        switchMap(() => this.loadAuthApi(gapi)),
+        switchMap(auth2 => this.initAuthApi(auth2))
       );
   }
 
