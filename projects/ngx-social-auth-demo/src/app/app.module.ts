@@ -2,9 +2,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {SocialAuthEntity, SocialAuthModule, SocialAuthProviderType} from 'ngx-social-auth';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {NgxSocialAuthModule, NgxSocialAuthProvider, NgxSocialAuthProviderType} from 'ngx-social-auth';
 
 @NgModule({
   declarations: [
@@ -12,15 +12,15 @@ import {MatIconModule} from '@angular/material/icon';
   ],
   imports: [
     BrowserModule,
-    SocialAuthModule.forRoot({
-      entities: [
-        new SocialAuthEntity(SocialAuthProviderType.Google, {
+    NgxSocialAuthModule.forRoot({
+      providers: [
+        new NgxSocialAuthProvider(NgxSocialAuthProviderType.Google, {
           client_id: '795988813952-4d4e4qcbseg2dlqulhp3c35tda8hp3om.apps.googleusercontent.com'
         }),
-        new SocialAuthEntity(SocialAuthProviderType.Facebook, {
+        new NgxSocialAuthProvider(NgxSocialAuthProviderType.Facebook, {
           appId: '1119074078473230', status: true, version: 'v9.0'
         }),
-        new SocialAuthEntity(SocialAuthProviderType.Microsoft, {
+        new NgxSocialAuthProvider(NgxSocialAuthProviderType.Microsoft, {
           auth: {clientId: '3e46b8b5-7756-452c-b6b2-d744f7fe6056', postLogoutRedirectUri: 'http://localhost:4200/'}
         })
       ]

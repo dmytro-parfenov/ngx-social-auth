@@ -1,7 +1,7 @@
 /**
  * All available auth providers
  */
-export enum SocialAuthProviderType {
+export enum NgxSocialAuthProviderType {
   Google = 'Google',
   Facebook = 'Facebook',
   Microsoft = 'Microsoft'

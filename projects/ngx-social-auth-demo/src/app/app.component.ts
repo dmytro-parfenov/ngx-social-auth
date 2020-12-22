@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {SocialAuthProviderType, SocialAuthService} from 'ngx-social-auth';
 import {of, throwError} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
+import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth';
 
 @Component({
   selector: 'app-root',
@@ -11,25 +11,25 @@ import {catchError, map, tap} from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-  readonly providers = new Map<SocialAuthProviderType, { isAuthenticated: boolean }>();
+  readonly providers = new Map<NgxSocialAuthProviderType, { isAuthenticated: boolean }>();
 
-  get providersKeys(): SocialAuthProviderType[] {
+  get providersKeys(): NgxSocialAuthProviderType[] {
     return Array.from(this.providers.keys());
   }
 
-  constructor(private readonly socialAuthService: SocialAuthService,
+  constructor(private readonly ngxSocialAuthService: NgxSocialAuthService,
               private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    (Object.keys(SocialAuthProviderType) as SocialAuthProviderType[]).forEach((value) => {
-      this.socialAuthService.getState(value).pipe(
+    (Object.keys(NgxSocialAuthProviderType) as NgxSocialAuthProviderType[]).forEach((value) => {
+      this.ngxSocialAuthService.getState(value).pipe(
         catchError((error: any) => {
           console.error(error);
           return throwError(error);
         }),
         tap(authResponse => {
-          console.log(`Signed in with '${SocialAuthProviderType[value]}'`, authResponse);
+          console.log(`Signed in with '${NgxSocialAuthProviderType[value]}'`, authResponse);
         }),
         map(authResponse => !!authResponse),
         catchError(() => of(false)),
@@ -41,12 +41,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  isAuthenticated(type: SocialAuthProviderType): boolean {
+  isAuthenticated(type: NgxSocialAuthProviderType): boolean {
     return !!this.providers.get(type)?.isAuthenticated;
   }
 
-  signIn(type: SocialAuthProviderType): void {
-    this.socialAuthService.signIn(type).pipe(
+  signIn(type: NgxSocialAuthProviderType): void {
+    this.ngxSocialAuthService.signIn(type).pipe(
       catchError((error: any) => {
         console.error(error);
         return throwError(error);
@@ -54,13 +54,13 @@ export class AppComponent implements OnInit {
       tap(authResponse => {
         this.providers.set(type, { isAuthenticated: true });
         this.changeDetectorRef.detectChanges();
-        console.log(`Signed in with '${SocialAuthProviderType[type]}'`, authResponse);
+        console.log(`Signed in with '${NgxSocialAuthProviderType[type]}'`, authResponse);
       })
     ).subscribe();
   }
 
-  signOut(type: SocialAuthProviderType): void {
-    this.socialAuthService.signOut(type).pipe(
+  signOut(type: NgxSocialAuthProviderType): void {
+    this.ngxSocialAuthService.signOut(type).pipe(
       catchError((error: any) => {
         console.error(error);
         return throwError(error);
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
       tap(() => {
         this.providers.set(type, { isAuthenticated: false });
         this.changeDetectorRef.detectChanges();
-        console.log(`Signed out from '${SocialAuthProviderType[type]}'`);
+        console.log(`Signed out from '${NgxSocialAuthProviderType[type]}'`);
       })
     ).subscribe();
   }

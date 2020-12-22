@@ -3,6 +3,11 @@
  */
 
 export * from './lib/social-auth.module';
-export * from './lib/social-auth-entity';
-export * from './lib/social-auth-provider-type.enum';
 export * from './lib/social-auth.service';
+export * from './lib/social-auth-module-config';
+export * from './lib/social-auth-provider';
+export * from './lib/social-auth-provider-type.enum';
+export * from './lib/social-auth-response';
+export * from './lib/strategy/microsoft/microsoft';
+export * from './lib/strategy/google/google';
+export * from './lib/strategy/facebook/facebook';

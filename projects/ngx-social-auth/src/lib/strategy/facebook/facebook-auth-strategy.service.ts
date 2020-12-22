@@ -1,12 +1,12 @@
 import {Inject, Injectable} from '@angular/core';
-import {FACEBOOK_AUTH_CONFIG} from './facebook-auth-config.key';
-import {SocialAuthProvider} from '../social-auth-provider';
-import {SocialAuthProviderType} from '../../social-auth-provider-type.enum';
+import {FACEBOOK_AUTH_CONFIG} from './facebook-auth-config.token';
+import {SocialAuthStrategy} from '../social-auth-strategy';
+import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
-import {SocialAuthUtilsService} from '../../core/social-auth-utils.service';
+import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {catchError, first, map, mergeMap, skipWhile, tap} from 'rxjs/operators';
-import {FacebookAuthConfig, FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './facebook-auth';
-import {SocialAuthResponse} from '../../social-auth-response';
+import {NgxSocialAuthResponse} from '../../social-auth-response';
+import {FacebookAuthConfig, FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './facebook';
 
 /**
  * Implements authentication by Facebook v9.0
@@ -15,10 +15,8 @@ import {SocialAuthResponse} from '../../social-auth-response';
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 @Injectable()
-export class FacebookAuthProviderService implements
-  SocialAuthProvider<FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions> {
-
-  readonly type = SocialAuthProviderType.Facebook;
+export class FacebookAuthStrategyService implements
+  SocialAuthStrategy<FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions> {
 
   /**
    * An behaviour subject that emits 'true' when facebook instance is ready, otherwise 'false'
@@ -37,11 +35,15 @@ export class FacebookAuthProviderService implements
     return `${this.apiHost}/${this.apiLang}/${this.apiResource}`;
   }
 
-  constructor(private readonly socialAuthUtilsService: SocialAuthUtilsService,
+  constructor(private readonly socialAuthUtilsService: SocialAuthUtilService,
               @Inject(FACEBOOK_AUTH_CONFIG) private readonly config: FacebookAuthConfig) {
   }
 
-  singIn(options?: FacebookAuthSignInOptions): Observable<SocialAuthResponse> {
+  isSupport(type: NgxSocialAuthProviderType): boolean {
+    return type === NgxSocialAuthProviderType.Facebook;
+  }
+
+  singIn(options?: FacebookAuthSignInOptions): Observable<NgxSocialAuthResponse> {
     return this.onFacebookInstanceReady().pipe(
       mergeMap(() => this.callFunction('login', options)),
       mergeMap(this.fromAuthResponse.bind(this)),
@@ -55,7 +57,7 @@ export class FacebookAuthProviderService implements
     );
   }
 
-  getState(options?: FacebookAuthStateOptions): Observable<SocialAuthResponse> {
+  getState(options?: FacebookAuthStateOptions): Observable<NgxSocialAuthResponse> {
     return this.onFacebookInstanceReady().pipe(
       mergeMap(() => this.callFunction('status', options)),
       mergeMap(this.fromAuthResponse.bind(this)),

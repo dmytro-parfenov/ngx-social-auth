@@ -1,13 +1,13 @@
 import {Inject, Injectable} from '@angular/core';
-import {SocialAuthProvider} from '../social-auth-provider';
-import {SocialAuthProviderType} from '../../social-auth-provider-type.enum';
+import {SocialAuthStrategy} from '../social-auth-strategy';
+import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {BehaviorSubject, EMPTY, Observable, of, throwError} from 'rxjs';
-import {MICROSOFT_AUTH_CONFIG} from './microsoft-auth-config.key';
-import {MicrosoftAuthConfig, MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './microsoft-auth';
-import {SocialAuthResponse} from '../../social-auth-response';
+import {MICROSOFT_AUTH_CONFIG} from './microsoft-auth-config.token';
+import {NgxSocialAuthResponse} from '../../social-auth-response';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
-import {SocialAuthUtilsService} from '../../core/social-auth-utils.service';
+import {SocialAuthUtilService} from '../../core/social-auth-util.service';
+import {MicrosoftAuthConfig, MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './microsoft';
 
 /**
  * Implements authentication by Microsoft
@@ -16,23 +16,25 @@ import {SocialAuthUtilsService} from '../../core/social-auth-utils.service';
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 @Injectable()
-export class MicrosoftAuthProviderService implements
-  SocialAuthProvider<MicrosoftAuthSignInOptions, MicrosoftAutSignOutOptions, MicrosoftAuthStateOptions> {
+export class MicrosoftAuthStrategyService implements
+  SocialAuthStrategy<MicrosoftAuthSignInOptions, MicrosoftAutSignOutOptions, MicrosoftAuthStateOptions> {
 
   private readonly APIUrl = 'https://alcdn.msauth.net/lib/1.4.4/js/msal.min.js';
 
-  readonly type = SocialAuthProviderType.Microsoft;
-
   /**
-   * A behaviour subject that emits msal instance
+   * A behaviour subject that emits Msal instance
    */
   private msalInstance$$: BehaviorSubject<any> | null = null;
 
-  constructor(private readonly socialAuthUtilsService: SocialAuthUtilsService,
+  constructor(private readonly socialAuthUtilsService: SocialAuthUtilService,
               @Inject(MICROSOFT_AUTH_CONFIG) private readonly configuration: MicrosoftAuthConfig) {
   }
 
-  singIn(options?: MicrosoftAuthSignInOptions): Observable<SocialAuthResponse> {
+  isSupport(type: NgxSocialAuthProviderType): boolean {
+    return type === NgxSocialAuthProviderType.Microsoft;
+  }
+
+  singIn(options?: MicrosoftAuthSignInOptions): Observable<NgxSocialAuthResponse> {
     return this.getMsalInstance().pipe(
       switchMap(msalInstance => {
         if (options?.isLoginRedirect) {
@@ -53,7 +55,7 @@ export class MicrosoftAuthProviderService implements
     );
   }
 
-  getState(options?: MicrosoftAuthStateOptions): Observable<SocialAuthResponse> {
+  getState(options?: MicrosoftAuthStateOptions): Observable<NgxSocialAuthResponse> {
     if (!options) {
       options = {scopes: ['openid', 'profile', 'User.Read']};
     }

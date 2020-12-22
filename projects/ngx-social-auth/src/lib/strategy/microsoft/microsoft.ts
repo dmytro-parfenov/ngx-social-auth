@@ -1,5 +1,4 @@
 /* tslint:disable:max-line-length */
-
 /**
  * @see https://azuread.github.io/microsoft-authentication-library-for-js/docs/msal/modules/_configuration_.html#configuration
  */

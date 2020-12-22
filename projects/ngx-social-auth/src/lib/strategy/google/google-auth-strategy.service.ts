@@ -1,13 +1,13 @@
 import {Inject, Injectable, OnDestroy} from '@angular/core';
-import {SocialAuthProvider} from '../social-auth-provider';
-import {GOOGLE_AUTH_CONFIG} from './google-auth-config.key';
+import {SocialAuthStrategy} from '../social-auth-strategy';
+import {GOOGLE_AUTH_CONFIG} from './google-auth-config.token';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, first, mergeMap, skipWhile, switchMap, tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
-import {SocialAuthProviderType} from '../../social-auth-provider-type.enum';
-import {SocialAuthResponse} from '../../social-auth-response';
-import {SocialAuthUtilsService} from '../../core/social-auth-utils.service';
-import {GoogleAuthConfig, GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './google-auth';
+import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
+import {NgxSocialAuthResponse} from '../../social-auth-response';
+import {SocialAuthUtilService} from '../../core/social-auth-util.service';
+import {GoogleAuthConfig, GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './google';
 
 /**
  * Implements authentication by Google
@@ -16,10 +16,8 @@ import {GoogleAuthConfig, GoogleAuthSignInOptions, GoogleAuthSignOutOptions, Goo
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 @Injectable()
-export class GoogleAuthProviderService implements
-  SocialAuthProvider<GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions>, OnDestroy {
-
-  readonly type = SocialAuthProviderType.Google;
+export class GoogleAuthStrategyService implements
+  SocialAuthStrategy<GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions>, OnDestroy {
 
   /**
    * A behaviour subject that emits google auth instance
@@ -36,7 +34,7 @@ export class GoogleAuthProviderService implements
    */
   private readonly APIName = 'auth2';
 
-  constructor(private readonly socialAuthUtilsService: SocialAuthUtilsService,
+  constructor(private readonly socialAuthUtilsService: SocialAuthUtilService,
               @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: GoogleAuthConfig) {
   }
 
@@ -46,7 +44,11 @@ export class GoogleAuthProviderService implements
     }
   }
 
-  singIn(options?: GoogleAuthSignInOptions): Observable<SocialAuthResponse> {
+  isSupport(type: NgxSocialAuthProviderType): boolean {
+    return type === NgxSocialAuthProviderType.Google;
+  }
+
+  singIn(options?: GoogleAuthSignInOptions): Observable<NgxSocialAuthResponse> {
     const includeAuthorizationData = options ? options.includeAuthorizationData : undefined;
 
     return this.getGoogleAuth().pipe(
@@ -61,7 +63,7 @@ export class GoogleAuthProviderService implements
     );
   }
 
-  getState(options?: GoogleAuthStateOptions): Observable<SocialAuthResponse> {
+  getState(options?: GoogleAuthStateOptions): Observable<NgxSocialAuthResponse> {
     return this.getGoogleAuth().pipe(
       switchMap(googleAuth => of(googleAuth.currentUser.get())),
       switchMap(googleUser => this.fromGoogleUser(googleUser, options))
@@ -71,11 +73,11 @@ export class GoogleAuthProviderService implements
   /**
    * Returns generic auth response object based on google user
    */
-  private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): Observable<SocialAuthResponse> {
+  private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): Observable<NgxSocialAuthResponse> {
     const credentials = googleUser.getAuthResponse(includeAuthorizationData);
 
     if (this.isValidCredentials(credentials)) {
-      return of<SocialAuthResponse>({credentials});
+      return of<NgxSocialAuthResponse>({credentials});
     }
 
     return throwError('Google user is not authorized');

@@ -1,29 +1,29 @@
 import {Inject, Injectable} from '@angular/core';
-import {SOCIAL_AUTH_PROVIDERS} from './provider/social-auth-providers.key';
-import {SocialAuthProvider} from './provider/social-auth-provider';
-import {SocialAuthProviderType} from './social-auth-provider-type.enum';
-import {SocialAuthResponse} from './social-auth-response';
+import {SOCIAL_AUTH_STRATEGIES} from './strategy/social-auth-strategies.token';
+import {SocialAuthStrategy} from './strategy/social-auth-strategy';
+import {NgxSocialAuthProviderType} from './social-auth-provider-type.enum';
+import {NgxSocialAuthResponse} from './social-auth-response';
 import {Observable, throwError} from 'rxjs';
-import {MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './provider/microsoft/microsoft-auth';
-import {FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './provider/facebook/facebook-auth';
-import {GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './provider/google/google-auth';
+import {GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './strategy/google/google';
+import {FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './strategy/facebook/facebook';
+import {MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './strategy/microsoft/microsoft';
 
 /**
- * Allows to authenticate the user by using all configured entities in {@link SocialAuthModule.forRoot()}
+ * Allows to authenticate the user by using all configured providers in {@link NgxSocialAuthModule.forRoot()}
  *
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 @Injectable({
   providedIn: 'root'
 })
-export class SocialAuthService {
+export class NgxSocialAuthService {
 
-  constructor(@Inject(SOCIAL_AUTH_PROVIDERS) private readonly socialAuthProviders: SocialAuthProvider[]) { }
+  constructor(@Inject(SOCIAL_AUTH_STRATEGIES) private readonly socialAuthStrategies: SocialAuthStrategy[]) { }
 
-  signIn(providerType: SocialAuthProviderType, options?: any): Observable<SocialAuthResponse>;
-  signIn(providerType: SocialAuthProviderType.Google, options?: GoogleAuthSignInOptions): Observable<SocialAuthResponse>;
-  signIn(providerType: SocialAuthProviderType.Facebook, options?: FacebookAuthSignInOptions): Observable<SocialAuthResponse>;
-  signIn(providerType: SocialAuthProviderType.Microsoft, options?: MicrosoftAuthSignInOptions): Observable<SocialAuthResponse>;
+  signIn(providerType: NgxSocialAuthProviderType, options?: any): Observable<NgxSocialAuthResponse>;
+  signIn(providerType: NgxSocialAuthProviderType.Google, options?: GoogleAuthSignInOptions): Observable<NgxSocialAuthResponse>;
+  signIn(providerType: NgxSocialAuthProviderType.Facebook, options?: FacebookAuthSignInOptions): Observable<NgxSocialAuthResponse>;
+  signIn(providerType: NgxSocialAuthProviderType.Microsoft, options?: MicrosoftAuthSignInOptions): Observable<NgxSocialAuthResponse>;
   /**
    * Signs in the user
    *
@@ -31,33 +31,33 @@ export class SocialAuthService {
    * @param options specific provider options
    * @returns specific provider auth response based on [providerType]
    */
-  signIn(providerType: SocialAuthProviderType, options?: any): Observable<SocialAuthResponse> {
-    const provider = this.findProvider(providerType);
+  signIn(providerType: NgxSocialAuthProviderType, options?: any): Observable<NgxSocialAuthResponse> {
+    const strategy = this.findStrategy(providerType);
 
-    return provider ? provider.singIn(options) : this.throwUndefinedProviderError(providerType);
+    return strategy ? strategy.singIn(options) : this.throwUndefinedProviderError(providerType);
   }
 
 
-  signOut(providerType: SocialAuthProviderType, options?: any): Observable<void>;
-  signOut(providerType: SocialAuthProviderType.Google, options?: GoogleAuthSignOutOptions): Observable<void>;
-  signOut(providerType: SocialAuthProviderType.Facebook, options?: FacebookAuthSignOutOptions): Observable<void>;
-  signOut(providerType: SocialAuthProviderType.Microsoft, options?: MicrosoftAutSignOutOptions): Observable<void>;
+  signOut(providerType: NgxSocialAuthProviderType, options?: any): Observable<void>;
+  signOut(providerType: NgxSocialAuthProviderType.Google, options?: GoogleAuthSignOutOptions): Observable<void>;
+  signOut(providerType: NgxSocialAuthProviderType.Facebook, options?: FacebookAuthSignOutOptions): Observable<void>;
+  signOut(providerType: NgxSocialAuthProviderType.Microsoft, options?: MicrosoftAutSignOutOptions): Observable<void>;
   /**
    * Signs out the current account from the application
    *
    * @param providerType provider type to call with
    * @param options specific provider options
    */
-  signOut(providerType: SocialAuthProviderType, options?: any): Observable<void> {
-    const provider = this.findProvider(providerType);
+  signOut(providerType: NgxSocialAuthProviderType, options?: any): Observable<void> {
+    const strategy = this.findStrategy(providerType);
 
-    return provider ? provider.signOut(options) : this.throwUndefinedProviderError(providerType);
+    return strategy ? strategy.signOut(options) : this.throwUndefinedProviderError(providerType);
   }
 
-  getState(providerType: SocialAuthProviderType, options?: any): Observable<SocialAuthResponse>;
-  getState(providerType: SocialAuthProviderType.Google, options?: GoogleAuthStateOptions): Observable<SocialAuthResponse>;
-  getState(providerType: SocialAuthProviderType.Facebook, options?: FacebookAuthStateOptions): Observable<SocialAuthResponse>;
-  getState(providerType: SocialAuthProviderType.Microsoft, options?: MicrosoftAuthStateOptions): Observable<SocialAuthResponse>;
+  getState(providerType: NgxSocialAuthProviderType, options?: any): Observable<NgxSocialAuthResponse>;
+  getState(providerType: NgxSocialAuthProviderType.Google, options?: GoogleAuthStateOptions): Observable<NgxSocialAuthResponse>;
+  getState(providerType: NgxSocialAuthProviderType.Facebook, options?: FacebookAuthStateOptions): Observable<NgxSocialAuthResponse>;
+  getState(providerType: NgxSocialAuthProviderType.Microsoft, options?: MicrosoftAuthStateOptions): Observable<NgxSocialAuthResponse>;
   /**
    * Get current auth state
    *
@@ -65,17 +65,17 @@ export class SocialAuthService {
    * @param options specific provider options
    * @returns specific provider auth response based on [providerType] if the user is authenticated, otherwise 'null'
    */
-  getState(providerType: SocialAuthProviderType, options?: any): Observable<SocialAuthResponse> {
-    const provider = this.findProvider(providerType);
+  getState(providerType: NgxSocialAuthProviderType, options?: any): Observable<NgxSocialAuthResponse> {
+    const strategy = this.findStrategy(providerType);
 
-    return provider ? provider.getState(options) : this.throwUndefinedProviderError(providerType);
+    return strategy ? strategy.getState(options) : this.throwUndefinedProviderError(providerType);
   }
 
-  private findProvider(providerType: SocialAuthProviderType): SocialAuthProvider | undefined {
-    return this.socialAuthProviders.find(provider => provider.type === providerType);
+  private findStrategy(providerType: NgxSocialAuthProviderType): SocialAuthStrategy | undefined {
+    return this.socialAuthStrategies.find(strategy => strategy.isSupport(providerType));
   }
 
-  private throwUndefinedProviderError(providerType: SocialAuthProviderType): Observable<never> {
-    return throwError(`Provider type is not defined. Type '${SocialAuthProviderType[providerType]}.'`);
+  private throwUndefinedProviderError(providerType: NgxSocialAuthProviderType): Observable<never> {
+    return throwError(`Provider type is not defined. Type '${NgxSocialAuthProviderType[providerType]}.'`);
   }
 }

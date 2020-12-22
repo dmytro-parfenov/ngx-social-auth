@@ -1,13 +1,13 @@
 import {Observable} from 'rxjs';
-import {SocialAuthProviderType} from '../social-auth-provider-type.enum';
-import {SocialAuthResponse} from '../social-auth-response';
+import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
+import {NgxSocialAuthResponse} from '../social-auth-response';
 
-export interface SocialAuthProvider<O1 = any, O2 = any, O3 = any, C = any> {
+export interface SocialAuthStrategy<O1 = any, O2 = any, O3 = any, C = any> {
 
   /**
-   * Specific provider type
+   * Check whether is strategy support provider type
    */
-  type: SocialAuthProviderType;
+  isSupport(type: NgxSocialAuthProviderType): boolean;
 
   /**
    * Signs in the user
@@ -15,7 +15,7 @@ export interface SocialAuthProvider<O1 = any, O2 = any, O3 = any, C = any> {
    * @param options specific provider options
    * @returns specific provider auth response
    */
-  singIn(options?: O1): Observable<SocialAuthResponse<C>>;
+  singIn(options?: O1): Observable<NgxSocialAuthResponse<C>>;
 
   /**
    * Signs out the current account from the application
@@ -30,5 +30,5 @@ export interface SocialAuthProvider<O1 = any, O2 = any, O3 = any, C = any> {
    * @param options specific provider options
    * @returns specific provider auth response if the user is authenticated, otherwise 'null'
    */
-  getState(options?: O3): Observable<SocialAuthResponse<C>>;
+  getState(options?: O3): Observable<NgxSocialAuthResponse<C>>;
 }
