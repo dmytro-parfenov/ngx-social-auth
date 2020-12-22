@@ -10,7 +10,7 @@ export interface NgxSocialAuthResponse<C = any> {
    *
    * For {@link NgxSocialAuthProviderType.Facebook} - see {@link https://developers.facebook.com/docs/reference/javascript/FB.getAuthResponse}
    *
-   * For {@link NgxSocialAuthProviderType.Microsoft} - see {@link https://azuread.github.io/microsoft-authentication-library-for-js/docs/msal/modules/_authresponse_.html#authresponse}
+   * For {@link NgxSocialAuthProviderType.Microsoft} - see {@link https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-common/classes/_src_response_authenticationresult_.authenticationresult.html}
    */
   credentials: C;
 }

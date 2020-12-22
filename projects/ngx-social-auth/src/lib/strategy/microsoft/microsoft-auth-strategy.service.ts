@@ -12,7 +12,7 @@ import {MicrosoftAuthConfig, MicrosoftAuthSignInOptions, MicrosoftAuthStateOptio
 /**
  * Implements authentication by Microsoft
  *
- * @see https://azuread.github.io/microsoft-authentication-library-for-js/docs/msal/
+ * @see https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 @Injectable()
