@@ -14,6 +14,9 @@ import {DOCUMENT} from '@angular/common';
  *
  * @see https://developers.facebook.com/docs/javascript
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
+ *
+ * @dynamic
+ * @see https://angular.io/guide/angular-compiler-options#strictmetadataemit
  */
 @Injectable()
 export class FacebookAuthStrategyService implements

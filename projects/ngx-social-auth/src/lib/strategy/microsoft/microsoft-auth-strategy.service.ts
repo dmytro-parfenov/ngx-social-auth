@@ -15,6 +15,9 @@ import {DOCUMENT} from '@angular/common';
  *
  * @see https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
+ *
+ * @dynamic
+ * @see https://angular.io/guide/angular-compiler-options#strictmetadataemit
  */
 @Injectable()
 export class MicrosoftAuthStrategyService implements
