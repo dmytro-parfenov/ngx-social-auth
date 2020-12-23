@@ -8,6 +8,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {MicrosoftAuthConfig, MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './microsoft';
+import {DOCUMENT} from '@angular/common';
 
 /**
  * Implements authentication by Microsoft
@@ -26,8 +27,16 @@ export class MicrosoftAuthStrategyService implements
    */
   private msalInstance$$: BehaviorSubject<any> | null = null;
 
-  constructor(private readonly socialAuthUtilsService: SocialAuthUtilService,
-              @Inject(MICROSOFT_AUTH_CONFIG) private readonly configuration: MicrosoftAuthConfig) {
+  /**
+   * An instance of Microsoft API
+   */
+  private get msal(): any {
+    return this.document.defaultView?.msal;
+  }
+
+  constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
+              @Inject(MICROSOFT_AUTH_CONFIG) private readonly configuration: MicrosoftAuthConfig,
+              @Inject(DOCUMENT) private readonly document: Document) {
   }
 
   isSupport(type: NgxSocialAuthProviderType): boolean {
@@ -44,7 +53,7 @@ export class MicrosoftAuthStrategyService implements
 
         return fromPromise(msalInstance.loginPopup(options));
       }),
-      map(credentials => ({providerResponse: credentials}))
+      map(providerResponse => ({providerResponse}))
     );
   }
 
@@ -69,7 +78,7 @@ export class MicrosoftAuthStrategyService implements
 
         return fromPromise(msalWithAccount.instance.acquireTokenSilent(options));
       }),
-      map(credentials => ({providerResponse: credentials}))
+      map(providerResponse => ({providerResponse}))
     );
   }
 
@@ -106,7 +115,7 @@ export class MicrosoftAuthStrategyService implements
   }
 
   private loadMsalInstance(): Observable<any> {
-    return this.socialAuthUtilsService.loadScript({src: this.APIUrl, async: true, defer: true}, 'body')
+    return this.socialAuthUtilService.loadScript({src: this.APIUrl, async: true, defer: true}, 'body')
       .pipe(
         switchMap(() => this.createMsalInstance())
       );
@@ -114,7 +123,7 @@ export class MicrosoftAuthStrategyService implements
 
   private createMsalInstance(): Observable<any> {
     try {
-      return of(new msal.PublicClientApplication(this.configuration));
+      return of(new this.msal.PublicClientApplication(this.configuration));
     } catch (e) {
       return throwError('Unable to create Msal instance');
     }

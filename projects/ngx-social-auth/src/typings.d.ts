@@ -1,5 +1,5 @@
-declare const FB: any;
-
-declare const gapi: any;
-
-declare const msal: any;
+interface Window {
+  FB: any;
+  gapi: any;
+  msal: any;
+}

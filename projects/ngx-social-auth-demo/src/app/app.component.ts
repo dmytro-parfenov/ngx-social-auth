@@ -12,7 +12,9 @@ import {environment} from '../environments/environment';
 })
 export class AppComponent implements OnInit {
 
-  readonly socialAuthProviders = new Map<NgxSocialAuthProviderType, { isAuthenticated: boolean }>();
+  private readonly socialAuthProviders = new Map<NgxSocialAuthProviderType, { isAuthenticated: boolean }>();
+
+  readonly socialAuthProviderTypes = Object.keys(NgxSocialAuthProviderType) as NgxSocialAuthProviderType[];
 
   constructor(private readonly ngxSocialAuthService: NgxSocialAuthService,
               private readonly changeDetectorRef: ChangeDetectorRef) {
@@ -41,9 +43,7 @@ export class AppComponent implements OnInit {
   }
 
   private loadAuthState(): void {
-    const socialAuthProviderTypes = Object.keys(NgxSocialAuthProviderType) as NgxSocialAuthProviderType[];
-
-    socialAuthProviderTypes.forEach((value) => {
+    this.socialAuthProviderTypes.forEach((value) => {
       this.ngxSocialAuthService.getState(value).pipe(
         catchError(this.handleError.bind(this)),
         map(authResponse => !!authResponse),

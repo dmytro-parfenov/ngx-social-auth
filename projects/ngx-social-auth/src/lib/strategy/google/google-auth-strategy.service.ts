@@ -8,6 +8,7 @@ import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {NgxSocialAuthResponse} from '../../social-auth-response';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {GoogleAuthConfig, GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './google';
+import {DOCUMENT} from '@angular/common';
 
 /**
  * Implements authentication by Google
@@ -34,8 +35,16 @@ export class GoogleAuthStrategyService implements
    */
   private readonly APIName = 'auth2';
 
-  constructor(private readonly socialAuthUtilsService: SocialAuthUtilService,
-              @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: GoogleAuthConfig) {
+  /**
+   * An instance of Google API
+   */
+  private get gapi(): any {
+    return this.document.defaultView?.gapi;
+  }
+
+  constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
+              @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: GoogleAuthConfig,
+              @Inject(DOCUMENT) private readonly document: Document) {
   }
 
   ngOnDestroy(): void {
@@ -74,18 +83,18 @@ export class GoogleAuthStrategyService implements
    * Returns generic auth response object based on google user
    */
   private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): Observable<NgxSocialAuthResponse> {
-    const credentials = googleUser.getAuthResponse(includeAuthorizationData);
+    const providerResponse = googleUser.getAuthResponse(includeAuthorizationData);
 
-    if (this.isValidCredentials(credentials)) {
-      return of<NgxSocialAuthResponse>({providerResponse: credentials});
+    if (this.isValidProviderResponse(providerResponse)) {
+      return of<NgxSocialAuthResponse>({providerResponse});
     }
 
     return throwError('Google user is not authorized');
   }
 
-  private isValidCredentials(credentials: any): boolean {
+  private isValidProviderResponse(providerResponse: any): boolean {
     try {
-      return Object.keys(credentials).length > 0;
+      return Object.keys(providerResponse).length > 0;
     } catch (e) {
       return false;
     }
@@ -124,11 +133,19 @@ export class GoogleAuthStrategyService implements
   }
 
   private loadAuthInstance(): Observable<any> {
-    return this.socialAuthUtilsService.loadScript({src: this.APIUrl, async: true, defer: true}, 'body')
+    return this.socialAuthUtilService.loadScript({src: this.APIUrl, async: true, defer: true}, 'body')
       .pipe(
-        switchMap(() => this.loadAuthApi(gapi)),
+        switchMap(this.handleGapiLoading.bind(this)),
         switchMap(auth2 => this.initAuthApi(auth2))
       );
+  }
+
+  private handleGapiLoading(): Observable<any> {
+    if (this.gapi) {
+      return this.loadAuthApi(this.gapi);
+    }
+
+    return throwError(`'gapi' is not loaded`);
   }
 
   private initAuthApi(auth2: any): Observable<any> {

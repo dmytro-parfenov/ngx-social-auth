@@ -7,6 +7,7 @@ import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {NgxSocialAuthResponse} from '../../social-auth-response';
 import {FacebookAuthConfig, FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './facebook';
+import {DOCUMENT} from '@angular/common';
 
 /**
  * Implements authentication by Facebook v9.0
@@ -35,9 +36,16 @@ export class FacebookAuthStrategyService implements
     return `${this.apiHost}/${this.apiLang}/${this.apiResource}`;
   }
 
-  constructor(private readonly socialAuthUtilsService: SocialAuthUtilService,
-              @Inject(FACEBOOK_AUTH_CONFIG) private readonly config: FacebookAuthConfig) {
+  /**
+   * An instance of Facebook API
+   */
+  private get FB(): any {
+    return this.document.defaultView?.FB;
   }
+
+  constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
+              @Inject(FACEBOOK_AUTH_CONFIG) private readonly config: FacebookAuthConfig,
+              @Inject(DOCUMENT) private readonly document: Document) {}
 
   isSupport(type: NgxSocialAuthProviderType): boolean {
     return type === NgxSocialAuthProviderType.Facebook;
@@ -47,7 +55,7 @@ export class FacebookAuthStrategyService implements
     return this.onFacebookInstanceReady().pipe(
       switchMap(() => this.callFunction('login', options)),
       switchMap(this.fromAuthResponse.bind(this)),
-      map(credentials => ({providerResponse: credentials}))
+      map(providerResponse => ({providerResponse}))
     );
   }
 
@@ -61,13 +69,13 @@ export class FacebookAuthStrategyService implements
     return this.onFacebookInstanceReady().pipe(
       switchMap(() => this.callFunction('status', options)),
       switchMap(this.fromAuthResponse.bind(this)),
-      map(credentials => ({providerResponse: credentials}))
+      map(providerResponse => ({providerResponse}))
     );
   }
 
 
   /**
-   * Emits credentials from auth response if user is authenticated, otherwise throw error
+   * Emits providerResponse from auth response if user is authenticated, otherwise throw error
    */
   private fromAuthResponse(response: any): Observable<any> {
     const authResponse = response.authResponse;
@@ -90,18 +98,22 @@ export class FacebookAuthStrategyService implements
       loaded$.complete();
     };
 
-    switch (functionType) {
-      case 'login':
-        FB.login(callback, options);
-        break;
-      case 'logout':
-        FB.logout(callback, options);
-        break;
-      case 'status':
-        FB.getLoginStatus(callback, options);
-        break;
-      default:
-        callback();
+    if (this.FB) {
+      switch (functionType) {
+        case 'login':
+          this.FB.login(callback, options);
+          break;
+        case 'logout':
+          this.FB.logout(callback, options);
+          break;
+        case 'status':
+          this.FB.getLoginStatus(callback, options);
+          break;
+        default:
+          loaded$.error(`Function type: '${functionType}' is not available`);
+      }
+    } else {
+      loaded$.error('Facebook instance is not available');
     }
 
     return loaded$.asObservable();
@@ -144,9 +156,18 @@ export class FacebookAuthStrategyService implements
   }
 
   private loadFacebookInstance(): Observable<Event> {
-    return this.socialAuthUtilsService.loadScript({src: this.apiSource, async: true, defer: true}, 'body').pipe(
-      tap(() => FB.init(this.config))
+    return this.socialAuthUtilService.loadScript({src: this.apiSource, async: true, defer: true}, 'body').pipe(
+      switchMap(this.handleFacebookInstanceLoading.bind(this))
     );
+  }
+
+  private handleFacebookInstanceLoading(event: Event): Observable<Event> {
+    if (this.FB) {
+      this.FB.init(this.config);
+      return of(event);
+    }
+
+    return throwError(`'FB' is not loaded`);
   }
 }
 
