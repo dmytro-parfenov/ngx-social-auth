@@ -1,24 +1,99 @@
-# NgxSocialAuth
+# ngx-social-auth
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+The Angular library provides opportunity to authenticate users by using social identity providers.
 
-## Code scaffolding
+## Supported providers
 
-Run `ng generate component component-name --project ngx-social-auth` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-social-auth`.
-> Note: Don't forget to add `--project ngx-social-auth` or else it will be added to the default project in your `angular.json` file. 
+- [Google](https://developers.google.com/identity/sign-in/web/reference)
+- [Facebook](https://developers.facebook.com/docs/javascript)
+- [Microsoft](https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/)
 
-## Build
+[Demo](https://dmytro-parfenov.github.io/ngx-social-auth-demo/)
 
-Run `ng build ngx-social-auth` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Install
 
-## Publishing
+NPM: `npm install ngx-social-auth --save`
 
-After building your library with `ng build ngx-social-auth`, go to the dist folder `cd dist/ngx-social-auth` and run `npm publish`.
+Yarn: `yarn add ngx-social-auth`
 
-## Running unit tests
+## Usage
 
-Run `ng test ngx-social-auth` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Import `NgxSocialAuthModule` to your working module
 
-## Further help
+```
+import {NgxSocialAuthModule} from 'ngx-social-auth';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+@NgModule({
+  imports: [
+    NgxSocialAuthModule.forRoot({
+      providers: [
+        new NgxSocialAuthProvider(NgxSocialAuthProviderType.Google, {
+          client_id: 'YOUR_CLIENT_ID'
+        }),
+        new NgxSocialAuthProvider(NgxSocialAuthProviderType.Facebook, {
+          appId: 'YOUR_APP_ID', 
+          status: true, 
+          version: 'v9.0'
+        }),
+        new NgxSocialAuthProvider(NgxSocialAuthProviderType.Microsoft, {
+          auth: {
+            clientId: 'YOUR_CLIENT_ID', 
+            postLogoutRedirectUri: 'YOUR_REDIRECT_URI_AFTER_LOGOUT'
+          }
+        })
+      ]
+    }),
+  ]
+})
+export class AppModule { }
+```
+
+Use `NgxSocialAuthService` to authenticate user
+
+```
+import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+
+  constructor(private readonly ngxSocialAuthService: NgxSocialAuthService) {
+  }
+
+  signIn(): void {
+    this.ngxSocialAuthService.signIn(NgxSocialAuthProviderType.Google).subscribe(authResponse => {
+      // do something
+    });
+  }
+
+  signOut(): void {
+    this.ngxSocialAuthService.signOut(NgxSocialAuthProviderType.Google).subscribe(() => {
+      // do something
+    });
+  }
+
+  getState(): void {
+    this.ngxSocialAuthService.getState(NgxSocialAuthProviderType.Google).subscribe(authResponse => {
+      // do something
+    });
+  }
+}
+```
+
+Every method in `NgxSocialAuthService` supports the second optional argument according to the specific provider. 
+You can pass it to provide additional functionality.
+
+```
+this.ngxSocialAuthService.signIn(NgxSocialAuthProviderType.Google, { redirect_uri: 'YOUR_REDIRECT_URI' }).subscribe(authResponse => {
+  // do something
+});
+```
+
+More examples you can find in [demo app](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth-demo)
+
+## Documentation
+
+[Docs site](https://dmytro-parfenov.github.io/ngx-social-auth/)
