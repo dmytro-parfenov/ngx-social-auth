@@ -1,4 +1,3 @@
-/* tslint:disable:max-line-length */
 import {NgxSocialAuthResponseMap} from './social-auth-response-map';
 import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
 
