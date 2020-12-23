@@ -13,7 +13,6 @@ import {DOCUMENT} from '@angular/common';
 /**
  * Implements authentication by Google
  *
- * @see https://developers.google.com/identity/sign-in/web/reference
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  *
  * @dynamic

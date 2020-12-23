@@ -12,7 +12,6 @@ import {DOCUMENT} from '@angular/common';
 /**
  * Implements authentication by Facebook v9.0
  *
- * @see https://developers.facebook.com/docs/javascript
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  *
  * @dynamic

@@ -13,7 +13,6 @@ import {DOCUMENT} from '@angular/common';
 /**
  * Implements authentication by Microsoft
  *
- * @see https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  *
  * @dynamic
