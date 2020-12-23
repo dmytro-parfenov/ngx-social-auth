@@ -1,27 +1,51 @@
-# NgxSocialAuth
+# ngx-social-auth
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+The project contains Angular library [ngx-social-auth](https://www.npmjs.com/package/ngx-social-auth) that provides opportunity to authenticate users by using social identity providers.
 
-## Development server
+## Supported providers
+ 
+ - [Google](https://developers.google.com/identity/sign-in/web/reference)
+ - [Facebook](https://developers.facebook.com/docs/javascript)
+ - [Microsoft](https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Getting Started
 
-## Code scaffolding
+## Structure
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Repository contains two projects
 
-## Build
+ - [ngx-social-auth](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth) - library source code
+ - [ngx-social-auth-demo](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth-demo) - used for testing the library and provides demo application 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Development
+
+Run `npm run start:lib` for a build library. The library will automatically rebuild if you change any of the source files from [ngx-social-auth](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth).
+
+Run `npm run start:demo` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files from [ngx-social-auth-demo](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth-demo).
+
+It is necessary to run `npm run start:lib` before `npm run start:demo` to ensure that library has already built before the demo application will run.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test:lib` to execute the unit tests via [Karma](https://karma-runner.github.io) for the library.
 
-## Running end-to-end tests
+Run `npm run test:demo` to execute the unit tests via [Karma](https://karma-runner.github.io) for the demo application.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Build
+
+Run `npm run build:lib:prod` to make a production build of the library. The build artifacts will be stored in the `dist/ngx-social-auth` directory.
+
+Run `npm run build:demo:prod` to make a production build of the demo application. The build artifacts will be stored in the `dist/ngx-social-auth-demo` directory.
+
+## Documentation
+
+Run `npm run docs:lib` to build the documentation for the library. The build artifacts will be stored in the `docs` directory.
+
+## Contributing
+
+[Contributing guideline](https://github.com/dmytro-parfenov/ngx-social-auth/blob/master/CONTRIBUTING.md)
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help mail to [dmitryparfenov937@gmail.com](mailto:dmitryparfenov937@gmail.com?subject=[GitHub]%20ngx-social-auth)
