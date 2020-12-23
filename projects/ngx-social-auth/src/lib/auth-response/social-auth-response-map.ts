@@ -1,7 +1,7 @@
 /* tslint:disable:max-line-length */
 import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
 
-export interface NgxSocialAuthResponseMap {
+export interface SocialAuthResponseMap {
   /**
    * @see https://developers.google.com/identity/sign-in/web/reference#gapiauth2authresponse
    */

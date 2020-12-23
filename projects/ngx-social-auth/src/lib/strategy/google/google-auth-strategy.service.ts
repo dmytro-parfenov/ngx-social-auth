@@ -8,7 +8,7 @@ import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {DOCUMENT} from '@angular/common';
-import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
+import {SocialAuthConfigMap} from '../../provider/social-auth-config-map';
 import {SignInOptionsMap} from '../options-map/sign-in-options-map';
 import {StateOptionsMap} from '../options-map/state-options-map';
 
@@ -47,7 +47,7 @@ export class GoogleAuthStrategyService implements
   }
 
   constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
-              @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: NgxSocialAuthConfigMap[NgxSocialAuthProviderType.Google],
+              @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: SocialAuthConfigMap[NgxSocialAuthProviderType.Google],
               @Inject(DOCUMENT) private readonly document: Document) {
   }
 

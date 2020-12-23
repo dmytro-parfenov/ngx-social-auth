@@ -1,4 +1,4 @@
-import {NgxSocialAuthConfigMap} from './social-auth-config-map';
+import {SocialAuthConfigMap} from './social-auth-config-map';
 import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
 
 /**
@@ -8,5 +8,5 @@ import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
  */
 export class NgxSocialAuthProvider<K extends NgxSocialAuthProviderType = NgxSocialAuthProviderType> {
   constructor(public readonly type: K,
-              public readonly config: NgxSocialAuthConfigMap[K]) {}
+              public readonly config: SocialAuthConfigMap[K]) {}
 }

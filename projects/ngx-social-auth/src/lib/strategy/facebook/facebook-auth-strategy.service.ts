@@ -7,7 +7,7 @@ import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {DOCUMENT} from '@angular/common';
-import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
+import {SocialAuthConfigMap} from '../../provider/social-auth-config-map';
 import {SignInOptionsMap} from '../options-map/sign-in-options-map';
 import {StateOptionsMap} from '../options-map/state-options-map';
 
@@ -48,7 +48,7 @@ export class FacebookAuthStrategyService implements
   }
 
   constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
-              @Inject(FACEBOOK_AUTH_CONFIG) private readonly config: NgxSocialAuthConfigMap[NgxSocialAuthProviderType.Facebook],
+              @Inject(FACEBOOK_AUTH_CONFIG) private readonly config: SocialAuthConfigMap[NgxSocialAuthProviderType.Facebook],
               @Inject(DOCUMENT) private readonly document: Document) {}
 
   isSupport(type: NgxSocialAuthProviderType): boolean {

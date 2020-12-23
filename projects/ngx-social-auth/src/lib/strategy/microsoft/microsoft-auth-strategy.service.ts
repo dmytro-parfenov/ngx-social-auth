@@ -8,7 +8,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {DOCUMENT} from '@angular/common';
-import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
+import {SocialAuthConfigMap} from '../../provider/social-auth-config-map';
 import {SignInOptionsMap} from '../options-map/sign-in-options-map';
 import {SignOutOptionsMap} from '../options-map/sign-out-options-map';
 import {StateOptionsMap} from '../options-map/state-options-map';
@@ -40,7 +40,7 @@ export class MicrosoftAuthStrategyService implements
   }
 
   constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
-              @Inject(MICROSOFT_AUTH_CONFIG) private readonly configuration: NgxSocialAuthConfigMap[NgxSocialAuthProviderType.Microsoft],
+              @Inject(MICROSOFT_AUTH_CONFIG) private readonly configuration: SocialAuthConfigMap[NgxSocialAuthProviderType.Microsoft],
               @Inject(DOCUMENT) private readonly document: Document) {
   }
 
