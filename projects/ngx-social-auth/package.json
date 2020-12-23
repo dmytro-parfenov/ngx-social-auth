@@ -1,6 +1,36 @@
 {
   "name": "ngx-social-auth",
+  "description": "The Angular library provides opportunity to authenticate users by using social identity providers",
   "version": "0.0.1",
+  "keywords": [
+    "angular",
+    "ngx",
+    "social",
+    "auth",
+    "google",
+    "facebook",
+    "microsoft"
+  ],
+  "homepage": "https://dmytro-parfenov.github.io/ngx-social-auth",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmytro-parfenov/ngx-social-auth.git"
+  },
+  "bugs": {
+    "email": "dmitryparfenov937@gmail.com",
+    "url": "https://github.com/dmytro-parfenov/ngx-social-auth/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "email": "dmitryparfenov937@gmail.com",
+    "name": "Dmytro Parfenov"
+  },
+  "scripts": {
+    "compodoc": "npx compodoc",
+    "version:major": "npm version major",
+    "version:minor": "npm version minor",
+    "version:patch": "npm version patch"
+  },
   "peerDependencies": {
     "@angular/common": "^11.0.5",
     "@angular/core": "^11.0.5"
