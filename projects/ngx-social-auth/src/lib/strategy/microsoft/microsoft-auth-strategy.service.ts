@@ -12,6 +12,7 @@ import {SocialAuthConfigMap} from '../../provider/social-auth-config-map';
 import {SignInOptionsMap} from '../options-map/sign-in-options-map';
 import {SignOutOptionsMap} from '../options-map/sign-out-options-map';
 import {StateOptionsMap} from '../options-map/state-options-map';
+import {MicrosoftAuthResponse} from './microsoft';
 
 /**
  * Implements authentication by Microsoft
@@ -57,7 +58,7 @@ export class MicrosoftAuthStrategyService implements
           return EMPTY;
         }
 
-        return fromPromise(msalInstance.loginPopup(options));
+        return fromPromise<MicrosoftAuthResponse>(msalInstance.loginPopup(options));
       }),
       map(providerResponse => ({providerResponse}))
     );
@@ -82,7 +83,7 @@ export class MicrosoftAuthStrategyService implements
           options = {...options, account: msalWithAccount.account};
         }
 
-        return fromPromise(msalWithAccount.instance.acquireTokenSilent(options));
+        return fromPromise<MicrosoftAuthResponse>(msalWithAccount.instance.acquireTokenSilent(options));
       }),
       map(providerResponse => ({providerResponse}))
     );

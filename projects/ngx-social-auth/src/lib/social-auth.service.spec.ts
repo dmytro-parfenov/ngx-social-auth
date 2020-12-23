@@ -43,9 +43,9 @@ describe('NgxSocialAuthService', () => {
       });
 
 
-      strategySpy.singIn.and.returnValue(of({providerResponse: null}));
+      strategySpy.singIn.and.returnValue(of({providerResponse: {}}));
       strategySpy.signOut.and.returnValue(of<any>(null));
-      strategySpy.getState.and.returnValue(of({providerResponse: null}));
+      strategySpy.getState.and.returnValue(of({providerResponse: {}}));
     });
   });
 

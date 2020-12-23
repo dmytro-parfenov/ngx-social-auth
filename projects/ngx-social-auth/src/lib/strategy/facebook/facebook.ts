@@ -38,4 +38,6 @@ export type FacebookAuthStateOptions = boolean;
 /**
  * @see https://developers.facebook.com/docs/reference/javascript/FB.getAuthResponse
  */
-export type FacebookAuthResponse = any;
+export interface FacebookAuthResponse {
+  [key: string]: any;
+}

@@ -35,4 +35,6 @@ export type GoogleAuthStateOptions = boolean;
 /**
  * @see https://developers.google.com/identity/sign-in/web/reference#gapiauth2authresponse
  */
-export type GoogleAuthResponse = any;
+export interface GoogleAuthResponse {
+  [key: string]: any;
+}

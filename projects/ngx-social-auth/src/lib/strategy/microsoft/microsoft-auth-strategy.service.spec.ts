@@ -6,9 +6,10 @@ import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {finalize} from 'rxjs/operators';
+import {MicrosoftAuthResponse} from './microsoft';
 
 class PublicClientApplication {
-  async loginPopup(): Promise<any> {
+  async loginPopup(): Promise<MicrosoftAuthResponse> {
     return {};
   }
 
@@ -20,11 +21,11 @@ class PublicClientApplication {
     return [{}];
   }
 
-  async handleRedirectPromise(): Promise<any> {
+  async handleRedirectPromise(): Promise<MicrosoftAuthResponse> {
     return {};
   }
 
-  async acquireTokenSilent(): Promise<any> {
+  async acquireTokenSilent(): Promise<MicrosoftAuthResponse> {
     return {};
   }
 }
