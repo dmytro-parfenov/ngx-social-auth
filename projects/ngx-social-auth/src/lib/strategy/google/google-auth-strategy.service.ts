@@ -7,9 +7,10 @@ import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
-import {GoogleAuthSignInOptions, GoogleAuthStateOptions} from './google';
 import {DOCUMENT} from '@angular/common';
 import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
+import {SignInOptionsMap} from '../options-map/sign-in-options-map';
+import {StateOptionsMap} from '../options-map/state-options-map';
 
 /**
  * Implements authentication by Google
@@ -60,7 +61,8 @@ export class GoogleAuthStrategyService implements
     return type === NgxSocialAuthProviderType.Google;
   }
 
-  singIn(options?: GoogleAuthSignInOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Google>> {
+  // tslint:disable-next-line:max-line-length
+  singIn(options?: SignInOptionsMap[NgxSocialAuthProviderType.Google]): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Google>> {
     const includeAuthorizationData = options ? options.includeAuthorizationData : undefined;
 
     return this.getGoogleAuth().pipe(
@@ -75,7 +77,8 @@ export class GoogleAuthStrategyService implements
     );
   }
 
-  getState(options?: GoogleAuthStateOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Google>> {
+  // tslint:disable-next-line:max-line-length
+  getState(options?: StateOptionsMap[NgxSocialAuthProviderType.Google]): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Google>> {
     return this.getGoogleAuth().pipe(
       switchMap(googleAuth => of(googleAuth.currentUser.get())),
       switchMap(googleUser => this.fromGoogleUser(googleUser, options))

@@ -6,9 +6,10 @@ import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
-import {FacebookAuthSignInOptions, FacebookAuthStateOptions} from './facebook';
 import {DOCUMENT} from '@angular/common';
 import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
+import {SignInOptionsMap} from '../options-map/sign-in-options-map';
+import {StateOptionsMap} from '../options-map/state-options-map';
 
 /**
  * Implements authentication by Facebook v9.0
@@ -54,7 +55,8 @@ export class FacebookAuthStrategyService implements
     return type === NgxSocialAuthProviderType.Facebook;
   }
 
-  singIn(options?: FacebookAuthSignInOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Facebook>> {
+  // tslint:disable-next-line:max-line-length
+  singIn(options?: SignInOptionsMap[NgxSocialAuthProviderType.Facebook]): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Facebook>> {
     return this.onFacebookInstanceReady().pipe(
       switchMap(() => this.callFunction('login', options)),
       switchMap(this.fromAuthResponse.bind(this)),
@@ -68,7 +70,8 @@ export class FacebookAuthStrategyService implements
     );
   }
 
-  getState(options?: FacebookAuthStateOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Facebook>> {
+  // tslint:disable-next-line:max-line-length
+  getState(options?: StateOptionsMap[NgxSocialAuthProviderType.Facebook]): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Facebook>> {
     return this.onFacebookInstanceReady().pipe(
       switchMap(() => this.callFunction('status', options)),
       switchMap(this.fromAuthResponse.bind(this)),

@@ -7,9 +7,11 @@ import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
-import {MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './microsoft';
 import {DOCUMENT} from '@angular/common';
 import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
+import {SignInOptionsMap} from '../options-map/sign-in-options-map';
+import {SignOutOptionsMap} from '../options-map/sign-out-options-map';
+import {StateOptionsMap} from '../options-map/state-options-map';
 
 /**
  * Implements authentication by Microsoft
@@ -46,7 +48,8 @@ export class MicrosoftAuthStrategyService implements
     return type === NgxSocialAuthProviderType.Microsoft;
   }
 
-  singIn(options?: MicrosoftAuthSignInOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Microsoft>> {
+  // tslint:disable-next-line:max-line-length
+  singIn(options?: SignInOptionsMap[NgxSocialAuthProviderType.Microsoft]): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Microsoft>> {
     return this.getMsalInstance().pipe(
       switchMap(msalInstance => {
         if (options?.isLoginRedirect) {
@@ -60,13 +63,14 @@ export class MicrosoftAuthStrategyService implements
     );
   }
 
-  signOut(options?: MicrosoftAutSignOutOptions): Observable<void> {
+  signOut(options?: SignOutOptionsMap[NgxSocialAuthProviderType.Microsoft]): Observable<void> {
     return this.getMsalInstance().pipe(
       switchMap(msalInstance => fromPromise<void>(msalInstance.logout(options)))
     );
   }
 
-  getState(options?: MicrosoftAuthStateOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Microsoft>> {
+  // tslint:disable-next-line:max-line-length
+  getState(options?: StateOptionsMap[NgxSocialAuthProviderType.Microsoft]): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Microsoft>> {
     if (!options) {
       options = {scopes: ['openid', 'profile', 'User.Read']};
     }
