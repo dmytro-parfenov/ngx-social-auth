@@ -57,10 +57,9 @@ export class MicrosoftAuthStrategyService implements
     );
   }
 
-  signOut(): Observable<void> {
+  signOut(options?: MicrosoftAutSignOutOptions): Observable<void> {
     return this.getMsalInstance().pipe(
-      tap(msalInstance => msalInstance.logout()),
-      switchMap(() => of<void>())
+      switchMap(msalInstance => fromPromise<void>(msalInstance.logout(options)))
     );
   }
 

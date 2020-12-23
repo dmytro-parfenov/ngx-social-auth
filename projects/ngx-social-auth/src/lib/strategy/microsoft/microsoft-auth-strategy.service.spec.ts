@@ -1,39 +1,44 @@
-import {GoogleAuthStrategyService} from './google-auth-strategy.service';
+import {MicrosoftAuthStrategyService} from './microsoft-auth-strategy.service';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
+import {MICROSOFT_AUTH_CONFIG} from './microsoft-auth-config.token';
+import {DOCUMENT} from '@angular/common';
 import {TestBed} from '@angular/core/testing';
-import {GOOGLE_AUTH_CONFIG} from './google-auth-config.token';
 import {of} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
-import {DOCUMENT} from '@angular/common';
+import {finalize} from 'rxjs/operators';
+
+class PublicClientApplication {
+  async loginPopup(): Promise<any> {
+    return {};
+  }
+
+  loginRedirect(): void {}
+
+  async logout(): Promise<void> {}
+
+  getAllAccounts(): object[] {
+    return [{}];
+  }
+
+  async handleRedirectPromise(): Promise<any> {
+    return {};
+  }
+
+  async acquireTokenSilent(): Promise<any> {
+    return {};
+  }
+}
 
 const documentMock = {
   defaultView: {
-    gapi: {
-      load: (apiName: string, callback: () => void) => {
-        setTimeout(() => {
-          const googleUser = {
-            getAuthResponse: () => ({access_token: ''})
-          };
-
-          documentMock.defaultView.gapi[apiName] = {
-            init: async () => ({
-              signIn: async () => googleUser,
-              signOut: async () => null,
-              currentUser: {
-                get: () => googleUser
-              }
-            })
-          };
-
-          callback();
-        });
-      }
-    } as {[key: string]: any}
+    msal: {
+      PublicClientApplication
+    }
   }
 };
 
-describe('GoogleAuthStrategyService', () => {
-  let service: GoogleAuthStrategyService;
+describe('MicrosoftAuthStrategyService', () => {
+  let service: MicrosoftAuthStrategyService;
   let socialAuthUtilServiceSpy: jasmine.SpyObj<SocialAuthUtilService>;
 
   beforeEach(() => {
@@ -41,14 +46,14 @@ describe('GoogleAuthStrategyService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        GoogleAuthStrategyService,
+        MicrosoftAuthStrategyService,
         { provide: SocialAuthUtilService, useValue: spySocialAuthUtilService },
-        { provide: GOOGLE_AUTH_CONFIG, useValue: {} },
+        { provide: MICROSOFT_AUTH_CONFIG, useValue: {} },
         { provide: DOCUMENT, useValue: documentMock }
       ],
     });
 
-    service = TestBed.inject(GoogleAuthStrategyService);
+    service = TestBed.inject(MicrosoftAuthStrategyService);
     socialAuthUtilServiceSpy = TestBed.inject(SocialAuthUtilService) as jasmine.SpyObj<SocialAuthUtilService>;
 
     socialAuthUtilServiceSpy.loadScript.and.returnValue(of(new Event('load')));
@@ -58,16 +63,26 @@ describe('GoogleAuthStrategyService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should support Google provider type', () => {
-    expect(service.isSupport(NgxSocialAuthProviderType.Google)).toBeTrue();
+  it('should support Microsoft provider type', () => {
+    expect(service.isSupport(NgxSocialAuthProviderType.Microsoft)).toBeTrue();
   });
 
-  it('should sign in', (done: DoneFn) => {
+  it('should sign in with popup', (done: DoneFn) => {
     service.singIn().subscribe(response => {
       expect(response).toBeTruthy();
 
       done();
     });
+  });
+
+  it('should sign in with redirect', (done: DoneFn) => {
+    service.singIn({isLoginRedirect: true}).pipe(
+      finalize(() => {
+        expect().nothing();
+
+        done();
+      })
+    ).subscribe(() => fail('expect stream completion, not success'));
   });
 
   it('should sign out', (done: DoneFn) => {
