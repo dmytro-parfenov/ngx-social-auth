@@ -6,8 +6,9 @@ import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
-import {FacebookAuthConfig, FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './facebook';
+import {FacebookAuthSignInOptions, FacebookAuthStateOptions} from './facebook';
 import {DOCUMENT} from '@angular/common';
+import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
 
 /**
  * Implements authentication by Facebook v9.0
@@ -19,7 +20,7 @@ import {DOCUMENT} from '@angular/common';
  */
 @Injectable()
 export class FacebookAuthStrategyService implements
-  SocialAuthStrategy<FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions> {
+  SocialAuthStrategy<NgxSocialAuthProviderType.Facebook> {
 
   /**
    * An behaviour subject that emits 'true' when facebook instance is ready, otherwise 'false'
@@ -46,14 +47,14 @@ export class FacebookAuthStrategyService implements
   }
 
   constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
-              @Inject(FACEBOOK_AUTH_CONFIG) private readonly config: FacebookAuthConfig,
+              @Inject(FACEBOOK_AUTH_CONFIG) private readonly config: NgxSocialAuthConfigMap[NgxSocialAuthProviderType.Facebook],
               @Inject(DOCUMENT) private readonly document: Document) {}
 
   isSupport(type: NgxSocialAuthProviderType): boolean {
     return type === NgxSocialAuthProviderType.Facebook;
   }
 
-  singIn(options?: FacebookAuthSignInOptions): Observable<NgxSocialAuthResponse> {
+  singIn(options?: FacebookAuthSignInOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Facebook>> {
     return this.onFacebookInstanceReady().pipe(
       switchMap(() => this.callFunction('login', options)),
       switchMap(this.fromAuthResponse.bind(this)),
@@ -67,7 +68,7 @@ export class FacebookAuthStrategyService implements
     );
   }
 
-  getState(options?: FacebookAuthStateOptions): Observable<NgxSocialAuthResponse> {
+  getState(options?: FacebookAuthStateOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Facebook>> {
     return this.onFacebookInstanceReady().pipe(
       switchMap(() => this.callFunction('status', options)),
       switchMap(this.fromAuthResponse.bind(this)),

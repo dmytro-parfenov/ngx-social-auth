@@ -6,7 +6,7 @@ import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
  *
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
-export class NgxSocialAuthProvider<K extends keyof NgxSocialAuthConfigMap = NgxSocialAuthProviderType> {
+export class NgxSocialAuthProvider<K extends NgxSocialAuthProviderType = NgxSocialAuthProviderType> {
   constructor(public readonly type: K,
               public readonly config: NgxSocialAuthConfigMap[K]) {}
 }

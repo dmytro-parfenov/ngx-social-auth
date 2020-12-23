@@ -7,8 +7,9 @@ import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
-import {MicrosoftAuthConfig, MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './microsoft';
+import {MicrosoftAuthSignInOptions, MicrosoftAuthStateOptions, MicrosoftAutSignOutOptions} from './microsoft';
 import {DOCUMENT} from '@angular/common';
+import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
 
 /**
  * Implements authentication by Microsoft
@@ -20,7 +21,7 @@ import {DOCUMENT} from '@angular/common';
  */
 @Injectable()
 export class MicrosoftAuthStrategyService implements
-  SocialAuthStrategy<MicrosoftAuthSignInOptions, MicrosoftAutSignOutOptions, MicrosoftAuthStateOptions> {
+  SocialAuthStrategy<NgxSocialAuthProviderType.Microsoft> {
 
   private readonly APIUrl = 'https://alcdn.msauth.net/browser/2.8.0/js/msal-browser.min.js';
 
@@ -37,7 +38,7 @@ export class MicrosoftAuthStrategyService implements
   }
 
   constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
-              @Inject(MICROSOFT_AUTH_CONFIG) private readonly configuration: MicrosoftAuthConfig,
+              @Inject(MICROSOFT_AUTH_CONFIG) private readonly configuration: NgxSocialAuthConfigMap[NgxSocialAuthProviderType.Microsoft],
               @Inject(DOCUMENT) private readonly document: Document) {
   }
 
@@ -45,7 +46,7 @@ export class MicrosoftAuthStrategyService implements
     return type === NgxSocialAuthProviderType.Microsoft;
   }
 
-  singIn(options?: MicrosoftAuthSignInOptions): Observable<NgxSocialAuthResponse> {
+  singIn(options?: MicrosoftAuthSignInOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Microsoft>> {
     return this.getMsalInstance().pipe(
       switchMap(msalInstance => {
         if (options?.isLoginRedirect) {
@@ -65,7 +66,7 @@ export class MicrosoftAuthStrategyService implements
     );
   }
 
-  getState(options?: MicrosoftAuthStateOptions): Observable<NgxSocialAuthResponse> {
+  getState(options?: MicrosoftAuthStateOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Microsoft>> {
     if (!options) {
       options = {scopes: ['openid', 'profile', 'User.Read']};
     }

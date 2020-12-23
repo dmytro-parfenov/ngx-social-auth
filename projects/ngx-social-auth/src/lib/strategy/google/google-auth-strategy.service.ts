@@ -7,8 +7,9 @@ import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
-import {GoogleAuthConfig, GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './google';
+import {GoogleAuthSignInOptions, GoogleAuthStateOptions} from './google';
 import {DOCUMENT} from '@angular/common';
+import {NgxSocialAuthConfigMap} from '../../provider/social-auth-config-map';
 
 /**
  * Implements authentication by Google
@@ -20,7 +21,7 @@ import {DOCUMENT} from '@angular/common';
  */
 @Injectable()
 export class GoogleAuthStrategyService implements
-  SocialAuthStrategy<GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions>, OnDestroy {
+  SocialAuthStrategy<NgxSocialAuthProviderType.Google>, OnDestroy {
 
   /**
    * A behaviour subject that emits google auth instance
@@ -45,7 +46,7 @@ export class GoogleAuthStrategyService implements
   }
 
   constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
-              @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: GoogleAuthConfig,
+              @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: NgxSocialAuthConfigMap[NgxSocialAuthProviderType.Google],
               @Inject(DOCUMENT) private readonly document: Document) {
   }
 
@@ -59,7 +60,7 @@ export class GoogleAuthStrategyService implements
     return type === NgxSocialAuthProviderType.Google;
   }
 
-  singIn(options?: GoogleAuthSignInOptions): Observable<NgxSocialAuthResponse> {
+  singIn(options?: GoogleAuthSignInOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Google>> {
     const includeAuthorizationData = options ? options.includeAuthorizationData : undefined;
 
     return this.getGoogleAuth().pipe(
@@ -74,7 +75,7 @@ export class GoogleAuthStrategyService implements
     );
   }
 
-  getState(options?: GoogleAuthStateOptions): Observable<NgxSocialAuthResponse> {
+  getState(options?: GoogleAuthStateOptions): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Google>> {
     return this.getGoogleAuth().pipe(
       switchMap(googleAuth => of(googleAuth.currentUser.get())),
       switchMap(googleUser => this.fromGoogleUser(googleUser, options))
@@ -84,11 +85,12 @@ export class GoogleAuthStrategyService implements
   /**
    * Returns generic auth response object based on google user
    */
-  private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): Observable<NgxSocialAuthResponse> {
+  // tslint:disable-next-line:max-line-length
+  private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): Observable<NgxSocialAuthResponse<NgxSocialAuthProviderType.Google>> {
     const providerResponse = googleUser.getAuthResponse(includeAuthorizationData);
 
     if (this.isValidProviderResponse(providerResponse)) {
-      return of<NgxSocialAuthResponse>({providerResponse});
+      return of({providerResponse});
     }
 
     return throwError('Google user is not authorized');

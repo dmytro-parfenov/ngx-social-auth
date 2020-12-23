@@ -2,7 +2,7 @@ import {Observable} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
 import {NgxSocialAuthResponse} from '../auth-response/social-auth-response';
 
-export interface SocialAuthStrategy<O1 = any, O2 = any, O3 = any, C = any> {
+export interface SocialAuthStrategy<K extends NgxSocialAuthProviderType = NgxSocialAuthProviderType> {
 
   /**
    * Check whether is strategy support provider type
@@ -15,14 +15,14 @@ export interface SocialAuthStrategy<O1 = any, O2 = any, O3 = any, C = any> {
    * @param options specific provider options
    * @returns specific provider auth response
    */
-  singIn(options?: O1): Observable<NgxSocialAuthResponse<C>>;
+  singIn(options?: any): Observable<NgxSocialAuthResponse<K>>;
 
   /**
    * Signs out the current account from the application
    *
    * @param options specific provider options
    */
-  signOut(options?: O2): Observable<void>;
+  signOut(options?: any): Observable<void>;
 
   /**
    * Get current auth state
@@ -30,5 +30,5 @@ export interface SocialAuthStrategy<O1 = any, O2 = any, O3 = any, C = any> {
    * @param options specific provider options
    * @returns specific provider auth response if the user is authenticated, otherwise 'null'
    */
-  getState(options?: O3): Observable<NgxSocialAuthResponse<C>>;
+  getState(options?: any): Observable<NgxSocialAuthResponse<K>>;
 }
