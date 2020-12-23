@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
-import {NgxSocialAuthResponse} from '../social-auth-response';
+import {NgxSocialAuthResponse} from '../auth-response/social-auth-response';
 
 export interface SocialAuthStrategy<O1 = any, O2 = any, O3 = any, C = any> {
 

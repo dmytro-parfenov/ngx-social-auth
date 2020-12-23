@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {SOCIAL_AUTH_STRATEGIES} from './strategy/social-auth-strategies.token';
 import {SocialAuthStrategy} from './strategy/social-auth-strategy';
 import {NgxSocialAuthProviderType} from './social-auth-provider-type.enum';
-import {NgxSocialAuthResponse} from './social-auth-response';
+import {NgxSocialAuthResponse} from './auth-response/social-auth-response';
 import {Observable, throwError} from 'rxjs';
 import {GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './strategy/google/google';
 import {FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './strategy/facebook/facebook';

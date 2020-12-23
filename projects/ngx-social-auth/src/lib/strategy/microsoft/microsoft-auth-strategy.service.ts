@@ -3,7 +3,7 @@ import {SocialAuthStrategy} from '../social-auth-strategy';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {BehaviorSubject, EMPTY, Observable, of, throwError} from 'rxjs';
 import {MICROSOFT_AUTH_CONFIG} from './microsoft-auth-config.token';
-import {NgxSocialAuthResponse} from '../../social-auth-response';
+import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';

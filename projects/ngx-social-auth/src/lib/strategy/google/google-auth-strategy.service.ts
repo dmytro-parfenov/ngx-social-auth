@@ -5,7 +5,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {catchError, skipWhile, switchMap, take, tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
-import {NgxSocialAuthResponse} from '../../social-auth-response';
+import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {GoogleAuthConfig, GoogleAuthSignInOptions, GoogleAuthSignOutOptions, GoogleAuthStateOptions} from './google';
 import {DOCUMENT} from '@angular/common';

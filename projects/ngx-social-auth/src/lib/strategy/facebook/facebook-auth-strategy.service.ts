@@ -5,7 +5,7 @@ import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
 import {catchError, map, skipWhile, switchMap, take, tap} from 'rxjs/operators';
-import {NgxSocialAuthResponse} from '../../social-auth-response';
+import {NgxSocialAuthResponse} from '../../auth-response/social-auth-response';
 import {FacebookAuthConfig, FacebookAuthSignInOptions, FacebookAuthSignOutOptions, FacebookAuthStateOptions} from './facebook';
 import {DOCUMENT} from '@angular/common';
 
