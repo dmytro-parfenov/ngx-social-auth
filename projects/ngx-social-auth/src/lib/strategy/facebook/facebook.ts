@@ -34,3 +34,8 @@ export type FacebookAuthSignOutOptions = any;
  * @see https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus#servers
  */
 export type FacebookAuthStateOptions = boolean;
+
+/**
+ * @see https://developers.facebook.com/docs/reference/javascript/FB.getAuthResponse
+ */
+export type FacebookAuthResponse = any;

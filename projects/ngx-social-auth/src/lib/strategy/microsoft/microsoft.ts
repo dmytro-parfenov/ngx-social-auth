@@ -30,3 +30,8 @@ export interface MicrosoftAutSignOutOptions {
 export interface MicrosoftAuthStateOptions {
   [key: string]: any;
 }
+
+/**
+ * @see @see https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-common/classes/_src_response_authenticationresult_.authenticationresult.html
+ */
+export type MicrosoftAuthResponse = any;

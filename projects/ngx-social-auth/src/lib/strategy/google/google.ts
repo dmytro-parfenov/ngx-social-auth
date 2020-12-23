@@ -31,3 +31,8 @@ export type GoogleAuthSignOutOptions = any;
  * https://developers.google.com/identity/sign-in/web/reference#googleusergetauthresponseincludeauthorizationdata
  */
 export type GoogleAuthStateOptions = boolean;
+
+/**
+ * @see https://developers.google.com/identity/sign-in/web/reference#gapiauth2authresponse
+ */
+export type GoogleAuthResponse = any;
