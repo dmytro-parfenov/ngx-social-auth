@@ -37,9 +37,6 @@ describe('AppComponent', () => {
   });
 
   it('should check authentication state', () => {
-    component.socialAuthProviders.set(NgxSocialAuthProviderType.Microsoft, { isAuthenticated: true });
-
-    expect(component.isAuthenticated(NgxSocialAuthProviderType.Microsoft)).toBeTrue();
     expect(component.isAuthenticated(NgxSocialAuthProviderType.Google)).toBeFalse();
   });
 
