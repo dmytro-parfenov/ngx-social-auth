@@ -28,11 +28,13 @@ export class SocialAuthUtilService {
    * @param append where the script will appended
    */
   loadScript(attributes: {src: string, [key: string]: any}, append: 'head' | 'body'): Observable<Event> {
-    const script = this.document.createElement('script');
+    const script = this.renderer.createElement('script') as HTMLScriptElement;
 
     Object.keys(attributes).forEach(key => this.renderer.setAttribute(script, key, attributes[key]));
 
-    this.document[append].appendChild(script);
+    const parentElement = this.document[append];
+
+    this.renderer.appendChild(parentElement, script);
 
     const load$ = fromEvent(script, 'load');
 

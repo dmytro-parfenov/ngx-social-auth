@@ -7,7 +7,7 @@ describe('SocialAuthUtilService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        SocialAuthUtilService
+        SocialAuthUtilService,
       ],
     });
 
@@ -16,6 +16,12 @@ describe('SocialAuthUtilService', () => {
 
   it('should create', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should create script', () => {
+    service.loadScript({src: ''}, 'body');
+
+    expect().nothing();
   });
 });
 
