@@ -2,7 +2,7 @@
  * @see https://developers.google.com/identity/sign-in/web/reference#gapiauth2clientconfig
  */
 export interface GoogleAuthConfig {
-  client_id?: string;
+  client_id: string;
   cookie_policy?: string;
   scope?: string;
   fetch_basic_profile?: string;

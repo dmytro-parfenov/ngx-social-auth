@@ -1,4 +1,4 @@
-import {NgxSocialAuthProvider} from './social-auth-provider';
+import {NgxSocialAuthProvider} from './provider/social-auth-provider';
 
 /**
  * Configuration for the {@link NgxSocialAuthModule}

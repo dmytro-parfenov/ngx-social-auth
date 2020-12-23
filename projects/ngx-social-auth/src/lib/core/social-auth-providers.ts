@@ -2,7 +2,7 @@
  * @author Dmytro Parfenov <dmitryparfenov937@gmail.com>
  */
 
-import {NgxSocialAuthProvider} from '../social-auth-provider';
+import {NgxSocialAuthProvider} from '../provider/social-auth-provider';
 import {Provider} from '@angular/core';
 import {NgxSocialAuthProviderType} from '../social-auth-provider-type.enum';
 import {GoogleAuthStrategyService} from '../strategy/google/google-auth-strategy.service';
