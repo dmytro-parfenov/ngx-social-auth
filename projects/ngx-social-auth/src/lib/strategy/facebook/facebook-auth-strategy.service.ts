@@ -22,7 +22,7 @@ export class FacebookAuthStrategyService implements
   /**
    * An behaviour subject that emits 'true' when facebook instance is ready, otherwise 'false'
    */
-  private facebookInstanceReady$: BehaviorSubject<boolean> | null = null;
+  private facebookInstanceReady$$: BehaviorSubject<boolean> | null = null;
 
   private readonly apiHost = 'https://connect.facebook.net';
 
@@ -91,11 +91,11 @@ export class FacebookAuthStrategyService implements
    * Call 'FB' function with specific options
    */
   private callFunction(functionType: 'login' | 'logout' | 'status', options?: any): Observable<any> {
-    const loaded$ = new Subject<any>();
+    const loaded$$ = new Subject<any>();
 
     const callback = (response?: any) => {
-      loaded$.next(response);
-      loaded$.complete();
+      loaded$$.next(response);
+      loaded$$.complete();
     };
 
     if (this.FB) {
@@ -110,13 +110,13 @@ export class FacebookAuthStrategyService implements
           this.FB.getLoginStatus(callback, options);
           break;
         default:
-          loaded$.error(`Function type: '${functionType}' is not available`);
+          loaded$$.error(`Function type: '${functionType}' is not available`);
       }
     } else {
-      loaded$.error('Facebook instance is not available');
+      loaded$$.error('Facebook instance is not available');
     }
 
-    return loaded$.asObservable();
+    return loaded$$.asObservable();
   }
 
 
@@ -124,14 +124,14 @@ export class FacebookAuthStrategyService implements
    * Emits next when facebook instance is ready, then completes
    */
   private onFacebookInstanceReady(): Observable<any> {
-    if (this.facebookInstanceReady$) {
-      return this.facebookInstanceReady$.asObservable().pipe(
+    if (this.facebookInstanceReady$$) {
+      return this.facebookInstanceReady$$.asObservable().pipe(
         skipWhile(isReady => !isReady),
         take(1)
       );
     }
 
-    this.facebookInstanceReady$ = new BehaviorSubject<boolean>(false);
+    this.facebookInstanceReady$$ = new BehaviorSubject<boolean>(false);
 
     return this.loadFacebookInstance().pipe(
       tap(this.handleFacebookInstanceReady.bind(this)),
@@ -140,16 +140,16 @@ export class FacebookAuthStrategyService implements
   }
 
   private handleFacebookInstanceReady(): void {
-    if (!this.facebookInstanceReady$) {
+    if (!this.facebookInstanceReady$$) {
       return;
     }
 
-    this.facebookInstanceReady$.next(true);
+    this.facebookInstanceReady$$.next(true);
   }
 
   private handleFacebookInstanceError(error: any): Observable<never> {
-    if (this.facebookInstanceReady$) {
-      this.facebookInstanceReady$.error(error);
+    if (this.facebookInstanceReady$$) {
+      this.facebookInstanceReady$$.error(error);
     }
 
     return throwError(error);

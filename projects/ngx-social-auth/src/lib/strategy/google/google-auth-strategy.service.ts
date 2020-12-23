@@ -23,7 +23,7 @@ export class GoogleAuthStrategyService implements
   /**
    * A behaviour subject that emits google auth instance
    */
-  private googleAuth$: BehaviorSubject<any> | null = null;
+  private googleAuth$$: BehaviorSubject<any> | null = null;
 
   /**
    * @see https://developers.google.com/identity/sign-in/web/reference#auth_setup
@@ -48,8 +48,8 @@ export class GoogleAuthStrategyService implements
   }
 
   ngOnDestroy(): void {
-    if (this.googleAuth$) {
-      this.googleAuth$.complete();
+    if (this.googleAuth$$) {
+      this.googleAuth$$.complete();
     }
   }
 
@@ -101,14 +101,14 @@ export class GoogleAuthStrategyService implements
   }
 
   private getGoogleAuth(): Observable<any> {
-    if (this.googleAuth$) {
-      return this.googleAuth$.asObservable().pipe(
+    if (this.googleAuth$$) {
+      return this.googleAuth$$.asObservable().pipe(
         skipWhile(googleAuth => !googleAuth),
         take(1)
       );
     }
 
-    this.googleAuth$ = new BehaviorSubject(null);
+    this.googleAuth$$ = new BehaviorSubject(null);
 
     return this.loadAuthInstance().pipe(
       tap(this.handleGoogleAuth.bind(this)),
@@ -117,16 +117,16 @@ export class GoogleAuthStrategyService implements
   }
 
   private handleGoogleAuth(googleAuth: any): void {
-    if (!this.googleAuth$) {
+    if (!this.googleAuth$$) {
       return;
     }
 
-    this.googleAuth$.next(googleAuth);
+    this.googleAuth$$.next(googleAuth);
   }
 
   private handleGoogleAuthError(error: any): Observable<never> {
-    if (this.googleAuth$) {
-      this.googleAuth$.error(error);
+    if (this.googleAuth$$) {
+      this.googleAuth$$.error(error);
     }
 
     return throwError(error);
@@ -153,13 +153,13 @@ export class GoogleAuthStrategyService implements
   }
 
   private loadAuthApi(gapi: any): Observable<any> {
-    const loaded$ = new Subject<any>();
+    const loaded$$ = new Subject<any>();
 
     gapi.load(this.APIName, () => {
-      loaded$.next(gapi[this.APIName]);
-      loaded$.complete();
+      loaded$$.next(gapi[this.APIName]);
+      loaded$$.complete();
     });
 
-    return loaded$.asObservable();
+    return loaded$$.asObservable();
   }
 }
