@@ -1,41 +1,39 @@
-import {FacebookAuthStrategyService} from './facebook-auth-strategy.service';
-import {TestBed} from '@angular/core/testing';
+import {GoogleAuthStrategyService} from './google-auth-strategy.service';
 import {SocialAuthUtilService} from '../../core/social-auth-util.service';
+import {TestBed} from '@angular/core/testing';
+import {GOOGLE_AUTH_CONFIG} from './google-auth-config.token';
 import {of} from 'rxjs';
-import {FACEBOOK_AUTH_CONFIG} from './facebook-auth-config.token';
 import {NgxSocialAuthProviderType} from '../../social-auth-provider-type.enum';
 import {DOCUMENT} from '@angular/common';
 
-const successfulAuthResponse = {
-  status: 'connected',
-  authResponse: {}
-};
-
 const documentMock = {
   defaultView: {
-    FB: {
-      init: () => {},
-      login: (callback: (response?: any) => void) => {
+    gapi: {
+      load: (apiName: string, callback: () => void) => {
         setTimeout(() => {
-          callback(successfulAuthResponse);
-        });
-      },
-      logout: (callback: () => void) => {
-        setTimeout(() => {
+          const googleUser = {
+            getAuthResponse: () => ({access_token: ''})
+          };
+
+          documentMock.defaultView.gapi[apiName] = {
+            init: async () => ({
+              signIn: async () => googleUser,
+              signOut: async () => null,
+              currentUser: {
+                get: () => googleUser
+              }
+            })
+          };
+
           callback();
         });
-      },
-      getLoginStatus: (callback: (response?: any) => void) => {
-        setTimeout(() => {
-          callback(successfulAuthResponse);
-        });
       }
-    }
+    } as {[key: string]: any}
   }
 };
 
-describe('FacebookAuthStrategyService', () => {
-  let service: FacebookAuthStrategyService;
+describe('GoogleAuthStrategyService', () => {
+  let service: GoogleAuthStrategyService;
   let socialAuthUtilServiceSpy: jasmine.SpyObj<SocialAuthUtilService>;
 
   beforeEach(() => {
@@ -43,14 +41,14 @@ describe('FacebookAuthStrategyService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        FacebookAuthStrategyService,
+        GoogleAuthStrategyService,
         { provide: SocialAuthUtilService, useValue: spySocialAuthUtilService },
-        { provide: FACEBOOK_AUTH_CONFIG, useValue: {} },
-        { provide: DOCUMENT, useValue: documentMock}
+        { provide: GOOGLE_AUTH_CONFIG, useValue: {} },
+        { provide: DOCUMENT, useValue: documentMock }
       ],
     });
 
-    service = TestBed.inject(FacebookAuthStrategyService);
+    service = TestBed.inject(GoogleAuthStrategyService);
     socialAuthUtilServiceSpy = TestBed.inject(SocialAuthUtilService) as jasmine.SpyObj<SocialAuthUtilService>;
 
     socialAuthUtilServiceSpy.loadScript.and.returnValue(of(new Event('load')));
@@ -60,8 +58,8 @@ describe('FacebookAuthStrategyService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should support Facebook provider type', () => {
-    expect(service.isSupport(NgxSocialAuthProviderType.Facebook)).toBeTrue();
+  it('should support Google provider type', () => {
+    expect(service.isSupport(NgxSocialAuthProviderType.Google)).toBeTrue();
   });
 
   it('should sign in', (done: DoneFn) => {
@@ -81,7 +79,7 @@ describe('FacebookAuthStrategyService', () => {
   });
 
   it('should get auth state', (done: DoneFn) => {
-    service.getState().subscribe(response => {
+    service.singIn().subscribe(response => {
       expect(response).toBeTruthy();
 
       done();

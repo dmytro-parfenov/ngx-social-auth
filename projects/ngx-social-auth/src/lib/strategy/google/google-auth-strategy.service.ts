@@ -156,7 +156,7 @@ export class GoogleAuthStrategyService implements
     const loaded$ = new Subject<any>();
 
     gapi.load(this.APIName, () => {
-      loaded$.next(gapi.auth2);
+      loaded$.next(gapi[this.APIName]);
       loaded$.complete();
     });
 
