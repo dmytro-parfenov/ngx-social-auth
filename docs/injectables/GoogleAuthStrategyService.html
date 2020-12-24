@@ -1,0 +1,717 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-social-auth documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ngx-social-auth documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>GoogleAuthStrategyService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/lib/strategy/google/google-auth-strategy.service.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Implements authentication by Google</p>
+
+            </p>
+
+
+            <p class="comment">
+                <h3>Example</h3>
+            </p>
+            <div class="io-description">
+            </div>
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getState">getState</a>
+                            </li>
+                            <li>
+                                <a href="#isSupport">isSupport</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#signOut">signOut</a>
+                            </li>
+                            <li>
+                                <a href="#singIn">singIn</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(socialAuthUtilService: <a href="../injectables/SocialAuthUtilService.html">SocialAuthUtilService</a>, googleAuthConfig, document: Document)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/lib/strategy/google/google-auth-strategy.service.ts:47</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>socialAuthUtilService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SocialAuthUtilService.html" target="_self" >SocialAuthUtilService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>googleAuthConfig</td>
+                                                  
+                                                        <td>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>document</td>
+                                                  
+                                                        <td>
+                                                                    <code>Document</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getState"></a>
+                    <span class="name">
+                        <b>
+                            getState
+                        </b>
+                        <a href="#getState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getState(options?)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/lib/strategy/google/google-auth-strategy.service.ts:81</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/NgxSocialAuthResponse.html" target="_self" >Observable&lt;NgxSocialAuthResponse&lt;NgxSocialAuthProviderType.Google&gt;&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSupport"></a>
+                    <span class="name">
+                        <b>
+                            isSupport
+                        </b>
+                        <a href="#isSupport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isSupport(type: <a href="../classes/NgxSocialAuthProvider.html">NgxSocialAuthProviderType</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/lib/strategy/google/google-auth-strategy.service.ts:60</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>type</td>
+                                    <td>
+                                                <code><a href="../classes/NgxSocialAuthProvider.html" target="_self" >NgxSocialAuthProviderType</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/lib/strategy/google/google-auth-strategy.service.ts:54</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signOut"></a>
+                    <span class="name">
+                        <b>
+                            signOut
+                        </b>
+                        <a href="#signOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>signOut()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">src/lib/strategy/google/google-auth-strategy.service.ts:74</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;void&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="singIn"></a>
+                    <span class="name">
+                        <b>
+                            singIn
+                        </b>
+                        <a href="#singIn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>singIn(options?)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">src/lib/strategy/google/google-auth-strategy.service.ts:65</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/NgxSocialAuthResponse.html" target="_self" >Observable&lt;NgxSocialAuthResponse&lt;NgxSocialAuthProviderType.Google&gt;&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Inject, Injectable, OnDestroy} from &#x27;@angular/core&#x27;;
+import {SocialAuthStrategy} from &#x27;../social-auth-strategy&#x27;;
+import {GOOGLE_AUTH_CONFIG} from &#x27;./google-auth-config.token&#x27;;
+import {fromPromise} from &#x27;rxjs/internal-compatibility&#x27;;
+import {catchError, skipWhile, switchMap, take, tap} from &#x27;rxjs/operators&#x27;;
+import {BehaviorSubject, Observable, of, Subject, throwError} from &#x27;rxjs&#x27;;
+import {NgxSocialAuthProviderType} from &#x27;../../social-auth-provider-type.enum&#x27;;
+import {NgxSocialAuthResponse} from &#x27;../../auth-response/social-auth-response&#x27;;
+import {SocialAuthUtilService} from &#x27;../../core/social-auth-util.service&#x27;;
+import {DOCUMENT} from &#x27;@angular/common&#x27;;
+import {SocialAuthConfigMap} from &#x27;../../provider/social-auth-config-map&#x27;;
+import {SignInOptionsMap} from &#x27;../options-map/sign-in-options-map&#x27;;
+import {StateOptionsMap} from &#x27;../options-map/state-options-map&#x27;;
+
+/**
+ * Implements authentication by Google
+ *
+ * @author Dmytro Parfenov &lt;dmitryparfenov937@gmail.com&gt;
+ *
+ * @dynamic
+ * @see https://angular.io/guide/angular-compiler-options#strictmetadataemit
+ */
+@Injectable()
+export class GoogleAuthStrategyService implements
+  SocialAuthStrategy&lt;NgxSocialAuthProviderType.Google&gt;, OnDestroy {
+
+  /**
+   * A behaviour subject that emits google auth instance
+   */
+  private googleAuth$$: BehaviorSubject&lt;any&gt; | null &#x3D; null;
+
+  /**
+   * @see https://developers.google.com/identity/sign-in/web/reference#auth_setup
+   */
+  private readonly APIUrl &#x3D; &#x27;https://apis.google.com/js/platform.js&#x27;;
+
+  /**
+   * @see https://developers.google.com/identity/sign-in/web/reference#auth_setup
+   */
+  private readonly APIName &#x3D; &#x27;auth2&#x27;;
+
+  /**
+   * An instance of Google API
+   */
+  private get gapi(): any {
+    return this.document.defaultView?.gapi;
+  }
+
+  constructor(private readonly socialAuthUtilService: SocialAuthUtilService,
+              @Inject(GOOGLE_AUTH_CONFIG) private readonly googleAuthConfig: SocialAuthConfigMap[NgxSocialAuthProviderType.Google],
+              @Inject(DOCUMENT) private readonly document: Document) {
+  }
+
+  ngOnDestroy(): void {
+    if (this.googleAuth$$) {
+      this.googleAuth$$.complete();
+    }
+  }
+
+  isSupport(type: NgxSocialAuthProviderType): boolean {
+    return type &#x3D;&#x3D;&#x3D; NgxSocialAuthProviderType.Google;
+  }
+
+  // tslint:disable-next-line:max-line-length
+  singIn(options?: SignInOptionsMap[NgxSocialAuthProviderType.Google]): Observable&lt;NgxSocialAuthResponse&lt;NgxSocialAuthProviderType.Google&gt;&gt; {
+    const includeAuthorizationData &#x3D; options ? options.includeAuthorizationData : undefined;
+
+    return this.getGoogleAuth().pipe(
+      switchMap(googleAuth &#x3D;&gt; fromPromise(googleAuth.signIn(options))),
+      switchMap(googleUser &#x3D;&gt; this.fromGoogleUser(googleUser, includeAuthorizationData))
+    );
+  }
+
+  signOut(): Observable&lt;void&gt; {
+    return this.getGoogleAuth().pipe(
+      switchMap((googleAuth) &#x3D;&gt; fromPromise&lt;void&gt;(googleAuth.signOut()))
+    );
+  }
+
+  // tslint:disable-next-line:max-line-length
+  getState(options?: StateOptionsMap[NgxSocialAuthProviderType.Google]): Observable&lt;NgxSocialAuthResponse&lt;NgxSocialAuthProviderType.Google&gt;&gt; {
+    return this.getGoogleAuth().pipe(
+      switchMap(googleAuth &#x3D;&gt; of(googleAuth.currentUser.get())),
+      switchMap(googleUser &#x3D;&gt; this.fromGoogleUser(googleUser, options))
+    );
+  }
+
+  /**
+   * Returns generic auth response object based on google user
+   */
+  // tslint:disable-next-line:max-line-length
+  private fromGoogleUser(googleUser: any, includeAuthorizationData?: boolean): Observable&lt;NgxSocialAuthResponse&lt;NgxSocialAuthProviderType.Google&gt;&gt; {
+    const providerResponse &#x3D; googleUser.getAuthResponse(includeAuthorizationData);
+
+    if (this.isValidProviderResponse(providerResponse)) {
+      return of({providerResponse});
+    }
+
+    return throwError(&#x27;Google user is not authorized&#x27;);
+  }
+
+  private isValidProviderResponse(providerResponse: any): boolean {
+    try {
+      return Object.keys(providerResponse).length &gt; 0;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  private getGoogleAuth(): Observable&lt;any&gt; {
+    if (this.googleAuth$$) {
+      return this.googleAuth$$.asObservable().pipe(
+        skipWhile(googleAuth &#x3D;&gt; !googleAuth),
+        take(1)
+      );
+    }
+
+    this.googleAuth$$ &#x3D; new BehaviorSubject(null);
+
+    return this.loadAuthInstance().pipe(
+      tap(this.handleGoogleAuth.bind(this)),
+      catchError(this.handleGoogleAuthError.bind(this))
+    );
+  }
+
+  private handleGoogleAuth(googleAuth: any): void {
+    if (!this.googleAuth$$) {
+      return;
+    }
+
+    this.googleAuth$$.next(googleAuth);
+  }
+
+  private handleGoogleAuthError(error: any): Observable&lt;never&gt; {
+    if (this.googleAuth$$) {
+      this.googleAuth$$.error(error);
+    }
+
+    return throwError(error);
+  }
+
+  private loadAuthInstance(): Observable&lt;any&gt; {
+    return this.socialAuthUtilService.loadScript({src: this.APIUrl, async: true, defer: true}, &#x27;body&#x27;)
+      .pipe(
+        switchMap(this.handleGapiLoading.bind(this)),
+        switchMap(auth2 &#x3D;&gt; this.initAuthApi(auth2))
+      );
+  }
+
+  private handleGapiLoading(): Observable&lt;any&gt; {
+    if (this.gapi) {
+      return this.loadAuthApi(this.gapi);
+    }
+
+    return throwError(&#x60;&#x27;gapi&#x27; is not loaded&#x60;);
+  }
+
+  private initAuthApi(auth2: any): Observable&lt;any&gt; {
+    return fromPromise(auth2.init(this.googleAuthConfig));
+  }
+
+  private loadAuthApi(gapi: any): Observable&lt;any&gt; {
+    const loaded$$ &#x3D; new Subject&lt;any&gt;();
+
+    gapi.load(this.APIName, () &#x3D;&gt; {
+      loaded$$.next(gapi[this.APIName]);
+      loaded$$.complete();
+    });
+
+    return loaded$$.asObservable();
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'GoogleAuthStrategyService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
