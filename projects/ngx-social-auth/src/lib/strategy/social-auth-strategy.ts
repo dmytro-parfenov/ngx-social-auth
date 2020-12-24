@@ -10,7 +10,7 @@ export interface SocialAuthStrategy<K extends NgxSocialAuthProviderType = NgxSoc
   /**
    * Check whether is strategy support provider type
    */
-  isSupport(type: NgxSocialAuthProviderType): boolean;
+  isSupport(type: K): boolean;
 
   /**
    * Signs in the user
