@@ -1,4 +1,4 @@
-# Contributing to ngx-social-auth
+# Contributing to ngx-social-auth2
 
 ## Commit Message Guidelines
 

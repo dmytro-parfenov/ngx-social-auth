@@ -1,4 +1,4 @@
-# ngx-social-auth
+# ngx-social-auth2
 
 The Angular library provides opportunity to authenticate users by using social identity providers.
 
@@ -12,16 +12,16 @@ The Angular library provides opportunity to authenticate users by using social i
 
 ## Install
 
-NPM: `npm install ngx-social-auth --save`
+NPM: `npm install ngx-social-auth2 --save`
 
-Yarn: `yarn add ngx-social-auth`
+Yarn: `yarn add ngx-social-auth2`
 
 ## Usage
 
 Import `NgxSocialAuthModule` to your working module
 
 ```
-import {NgxSocialAuthModule} from 'ngx-social-auth';
+import {NgxSocialAuthModule} from 'ngx-social-auth2';
 
 @NgModule({
   imports: [
@@ -51,7 +51,7 @@ export class AppModule { }
 Use `NgxSocialAuthService` to authenticate user
 
 ```
-import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth';
+import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth2';
 
 @Component({
   selector: 'app-root',

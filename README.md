@@ -1,6 +1,6 @@
 # ngx-social-auth
 
-The project contains Angular library [ngx-social-auth](https://www.npmjs.com/package/ngx-social-auth) that provides opportunity to authenticate users by using social identity providers.
+The project contains Angular library [ngx-social-auth2](https://www.npmjs.com/package/ngx-social-auth2) that provides opportunity to authenticate users by using social identity providers.
 
 ## Supported providers
  
@@ -34,7 +34,7 @@ Run `npm run test:demo` to execute the unit tests via [Karma](https://karma-runn
 
 ## Build
 
-Run `npm run build:lib:prod` to make a production build of the library. The build artifacts will be stored in the `dist/ngx-social-auth` directory.
+Run `npm run build:lib:prod` to make a production build of the library. The build artifacts will be stored in the `dist/ngx-social-auth2` directory.
 
 Run `npm run build:demo:prod` to make a production build of the demo application. The build artifacts will be stored in the `dist/ngx-social-auth-demo` directory.
 

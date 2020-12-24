@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth';
+import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth2';
 import {EMPTY} from 'rxjs';
 
 describe('AppComponent', () => {

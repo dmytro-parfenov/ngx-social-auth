@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
-import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth';
+import {NgxSocialAuthProviderType, NgxSocialAuthService} from 'ngx-social-auth2';
 import {environment} from '../environments/environment';
 
 @Component({

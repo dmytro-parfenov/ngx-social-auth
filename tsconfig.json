@@ -20,9 +20,9 @@
       "dom"
     ],
     "paths": {
-      "ngx-social-auth": [
-        "dist/ngx-social-auth/ngx-social-auth",
-        "dist/ngx-social-auth"
+      "ngx-social-auth2": [
+        "dist/ngx-social-auth2/ngx-social-auth2",
+        "dist/ngx-social-auth2"
       ]
     }
   },

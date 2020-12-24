@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import {NgxSocialAuthModule, NgxSocialAuthProvider, NgxSocialAuthProviderType} from 'ngx-social-auth';
+import {NgxSocialAuthModule, NgxSocialAuthProvider, NgxSocialAuthProviderType} from 'ngx-social-auth2';
 import {environment} from '../environments/environment';
 
 @NgModule({
