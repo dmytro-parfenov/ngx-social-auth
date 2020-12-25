@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgxSocialAuthProviderType} from 'ngx-social-auth2';
-import {ProviderNameService} from '../core/provider-name.service';
+import {ProviderNameService} from '../../core/provider-name.service';
 
 @Component({
   selector: 'app-provider',
@@ -12,7 +12,7 @@ export class ProviderComponent {
 
   @Input() type: NgxSocialAuthProviderType | null = null;
 
-  @Input() isLoggedIn = false;
+  @Input() isAuthorized: boolean | null = null;
 
   @Output() signIn = new EventEmitter<void>();
 

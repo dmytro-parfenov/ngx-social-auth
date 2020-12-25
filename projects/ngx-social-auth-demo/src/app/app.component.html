@@ -1,7 +1,3 @@
-<section>
-  <app-provider *ngFor="let type of socialAuthProviderTypes"
-                [type]="type"
-                [isLoggedIn]="isLoggedIn(type)"
-                (signIn)="onSignIn(type)"
-                (signOut)="onSignOut(type)"></app-provider>
+<section class="providers">
+  <app-providers></app-providers>
 </section>

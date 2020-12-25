@@ -7,7 +7,7 @@
     <div class="description">
       <div class="name">{{name}}</div>
       <div class="status">
-        <span *ngIf="isLoggedIn">logged in</span>
+        <span *ngIf="isAuthorized">authorized</span>
       </div>
     </div>
   </div>
@@ -15,9 +15,9 @@
   <div class="actions">
     <button mat-button
             (click)="onSignIn()"
-            *ngIf="!isLoggedIn; else loggedIn">SIGN IN</button>
+            *ngIf="!isAuthorized; else authorized">SIGN IN</button>
 
-    <ng-template #loggedIn>
+    <ng-template #authorized>
       <button mat-button
               (click)="onSignOut()">SIGN OUT</button>
       <button mat-icon-button
