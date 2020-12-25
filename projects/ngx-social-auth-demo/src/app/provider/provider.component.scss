@@ -23,7 +23,7 @@ section {
 
     .description {
       display: grid;
-      grid-template-rows: repeat(2, 20px);
+      grid-template-rows: 20px 25px;
       grid-gap: 10px;
 
       .name, .status {
