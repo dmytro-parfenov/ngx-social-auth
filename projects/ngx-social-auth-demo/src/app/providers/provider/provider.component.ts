@@ -18,6 +18,8 @@ export class ProviderComponent {
 
   @Output() signOut = new EventEmitter<void>();
 
+  @Output() showAuthResponse = new EventEmitter<void>();
+
   get name(): string {
     return this.type ? this.providerNameService.resolve(this.type) : '-';
   }
@@ -30,6 +32,10 @@ export class ProviderComponent {
 
   onSignOut(): void {
     this.signOut.emit();
+  }
+
+  onShowAuthResponse(): void {
+    this.showAuthResponse.emit();
   }
 
 }

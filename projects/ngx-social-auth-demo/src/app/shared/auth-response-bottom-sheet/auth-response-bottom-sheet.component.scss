@@ -1,0 +1,14 @@
+@import 'node_modules/@angular/material/theming';
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+pre {
+  background: mat-color(mat-palette($mat-grey), 200);
+  padding: 15px;
+  overflow: auto;
+  border-radius: 4px;
+}

@@ -12,13 +12,16 @@ import {ProviderIconComponent} from './shared/provider-icon/provider-icon.compon
 import {CoreModule} from './core/core.module';
 import {ProvidersComponent} from './providers/providers.component';
 import {authModuleConfig} from './auth-module-config';
+import {AuthResponseBottomSheetComponent} from './shared/auth-response-bottom-sheet/auth-response-bottom-sheet.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProviderComponent,
     ProviderIconComponent,
-    ProvidersComponent
+    ProvidersComponent,
+    AuthResponseBottomSheetComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -27,7 +30,8 @@ import {authModuleConfig} from './auth-module-config';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    CoreModule
+    CoreModule,
+    MatBottomSheetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

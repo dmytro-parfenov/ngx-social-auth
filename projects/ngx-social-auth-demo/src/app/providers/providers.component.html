@@ -2,4 +2,5 @@
               [type]="type"
               [isAuthorized]="authorizedProviders.has(type)"
               (signIn)="onSignIn(type)"
-              (signOut)="onSignOut(type)"></app-provider>
+              (signOut)="onSignOut(type)"
+              (showAuthResponse)="showAuthResponse(type)"></app-provider>
