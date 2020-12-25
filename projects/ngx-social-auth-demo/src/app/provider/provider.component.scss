@@ -1,0 +1,70 @@
+@import '~@angular/material/theming';
+
+section {
+  display: grid;
+  grid-template-rows: auto 40px;
+  grid-gap: 15px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  padding: 15px;
+  border-radius: 4px;
+  min-width: 150px;
+
+  .header {
+    display: grid;
+    grid-template-columns: 40px auto;
+    grid-gap: 10px;
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fade-in 0.5s ease-in;
+    }
+
+    .description {
+      display: grid;
+      grid-template-rows: repeat(2, 20px);
+      grid-gap: 10px;
+
+      .name, .status {
+        display: flex;
+        align-items: center;
+      }
+
+      .name {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .status {
+        span {
+          font-size: 12px;
+          animation: fade-in 0.5s ease-in;
+          color: #ffffff;
+          padding: 5px 10px;
+          border-radius: 2em;
+          background: mat-color(mat-palette($mat-green), A400);
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      animation: fade-in 0.5s ease-in;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

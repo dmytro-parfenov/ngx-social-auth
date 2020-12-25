@@ -37,7 +37,7 @@ describe('AppComponent', () => {
   });
 
   it('should check authentication state', () => {
-    expect(component.isAuthenticated(NgxSocialAuthProviderType.Google)).toBeFalse();
+    expect(component.isLoggedIn(NgxSocialAuthProviderType.Google)).toBeFalse();
   });
 
   it('should get auth state through the auth service', () => {
@@ -45,13 +45,13 @@ describe('AppComponent', () => {
   });
 
   it('should sign in through the auth service', () => {
-    component.signIn(NgxSocialAuthProviderType.Google);
+    component.onSignIn(NgxSocialAuthProviderType.Google);
 
     expect(socialAuthServiceSpy.signIn).toHaveBeenCalled();
   });
 
   it('should sign out through the auth service', () => {
-    component.signOut(NgxSocialAuthProviderType.Google);
+    component.onSignOut(NgxSocialAuthProviderType.Google);
 
     expect(socialAuthServiceSpy.signOut).toHaveBeenCalled();
   });

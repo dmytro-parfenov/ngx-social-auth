@@ -24,21 +24,21 @@ export class AppComponent implements OnInit {
     this.loadAuthState();
   }
 
-  isAuthenticated(type: NgxSocialAuthProviderType): boolean {
+  isLoggedIn(type: NgxSocialAuthProviderType): boolean {
     return !!this.socialAuthProviders.get(type)?.isAuthenticated;
   }
 
-  signIn(type: NgxSocialAuthProviderType): void {
+  onSignIn(type: NgxSocialAuthProviderType): void {
     this.ngxSocialAuthService.signIn(type).pipe(
       catchError(this.handleError.bind(this)),
-      tap(authResponse => this.onSignIn(type, authResponse))
+      tap(authResponse => this.handleSignIn(type, authResponse))
     ).subscribe();
   }
 
-  signOut(type: NgxSocialAuthProviderType): void {
+  onSignOut(type: NgxSocialAuthProviderType): void {
     this.ngxSocialAuthService.signOut(type).pipe(
       catchError(this.handleError.bind(this)),
-      tap(() => this.onSignOut(type))
+      tap(() => this.handleSignOut(type))
     ).subscribe();
   }
 
@@ -48,12 +48,12 @@ export class AppComponent implements OnInit {
         catchError(this.handleError.bind(this)),
         map(authResponse => !!authResponse),
         catchError(() => of(false)),
-        tap(isAuthenticated => this.onGetState(value, isAuthenticated))
+        tap(isAuthenticated => this.handleGetState(value, isAuthenticated))
       ).subscribe();
     });
   }
 
-  private onGetState(type: NgxSocialAuthProviderType, isAuthenticated: boolean): void {
+  private handleGetState(type: NgxSocialAuthProviderType, isAuthenticated: boolean): void {
     this.socialAuthProviders.set(type, {isAuthenticated});
     this.changeDetectorRef.detectChanges();
 
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private onSignIn(type: NgxSocialAuthProviderType, authResponse: any): void {
+  private handleSignIn(type: NgxSocialAuthProviderType, authResponse: any): void {
     this.socialAuthProviders.set(type, { isAuthenticated: true });
     this.changeDetectorRef.detectChanges();
 
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private onSignOut(type: NgxSocialAuthProviderType): void {
+  private handleSignOut(type: NgxSocialAuthProviderType): void {
     this.socialAuthProviders.set(type, { isAuthenticated: false });
     this.changeDetectorRef.detectChanges();
 

@@ -6,12 +6,20 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {NgxSocialAuthModule, NgxSocialAuthProvider, NgxSocialAuthProviderType} from 'ngx-social-auth2';
 import {environment} from '../environments/environment';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ProviderComponent} from './provider/provider.component';
+import {ProviderIconComponent} from './provider-icon/provider-icon.component';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProviderComponent,
+    ProviderIconComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     NgxSocialAuthModule.forRoot({
       providers: [
@@ -27,7 +35,9 @@ import {environment} from '../environments/environment';
       ]
     }),
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

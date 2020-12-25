@@ -1,0 +1,22 @@
+section {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  //noinspection CssUnknownTarget
+  background-image: url('/assets/images/providers/share.svg');
+
+  &[data-provider-type='Google'] {
+    //noinspection CssUnknownTarget
+    background-image: url('/assets/images/providers/google.svg');
+  }
+
+  &[data-provider-type='Facebook'] {
+    //noinspection CssUnknownTarget
+    background-image: url('/assets/images/providers/facebook.svg');
+  }
+
+  &[data-provider-type='Microsoft'] {
+    //noinspection CssUnknownTarget
+    background-image: url('/assets/images/providers/microsoft.svg');
+  }
+}

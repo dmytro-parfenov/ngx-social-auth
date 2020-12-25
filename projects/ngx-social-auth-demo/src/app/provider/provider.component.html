@@ -1,0 +1,30 @@
+<section>
+  <div class="header">
+    <div class="icon">
+      <app-provider-icon [type]="type"></app-provider-icon>
+    </div>
+
+    <div class="description">
+      <div class="name">{{name}}</div>
+      <div class="status">
+        <span *ngIf="isLoggedIn">logged in</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button mat-button
+            (click)="onSignIn()"
+            *ngIf="!isLoggedIn; else loggedIn">SIGN IN</button>
+
+    <ng-template #loggedIn>
+      <button mat-button
+              (click)="onSignOut()">SIGN OUT</button>
+      <button mat-icon-button
+              matTooltip="Show auth response"
+              matTooltipPosition="above">
+        <mat-icon >code</mat-icon>
+      </button>
+    </ng-template>
+  </div>
+</section>
