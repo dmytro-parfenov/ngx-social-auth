@@ -6,6 +6,7 @@ import {catchError, finalize} from 'rxjs/operators';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {AuthResponseBottomSheetComponent} from '../shared/auth-response-bottom-sheet/auth-response-bottom-sheet.component';
 import {AppAuthResponseBottomSheetData} from '../shared/auth-response-bottom-sheet/app-auth-response-bottom-sheet-data';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-providers',
@@ -24,7 +25,8 @@ export class ProvidersComponent implements OnInit {
   constructor(private readonly ngxSocialAuthService: NgxSocialAuthService,
               private readonly changeDetectorRef: ChangeDetectorRef,
               private readonly matBottomSheet: MatBottomSheet,
-              private readonly ngZone: NgZone) { }
+              private readonly ngZone: NgZone,
+              private readonly toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.loadState();
@@ -54,8 +56,7 @@ export class ProvidersComponent implements OnInit {
     const authResponse = this.authorizedProviders.get(providerType);
 
     if (!authResponse) {
-      // TODO (Dmytro Parfenov): should be notifications
-      console.error('Unable to show auth response');
+      this.toastrService.error('Unable to show auth response');
       return;
     }
 
@@ -102,8 +103,7 @@ export class ProvidersComponent implements OnInit {
   }
 
   private handleError(error: any): Observable<never> {
-    // TODO (Dmytro Parfenov): should be notifications
-    console.error(error);
+    this.toastrService.error('Something went wrong');
 
     return throwError(error);
   }

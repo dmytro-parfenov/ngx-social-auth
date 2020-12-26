@@ -14,6 +14,7 @@ import {ProvidersComponent} from './providers/providers.component';
 import {authModuleConfig} from './auth-module-config';
 import {AuthResponseBottomSheetComponent} from './shared/auth-response-bottom-sheet/auth-response-bottom-sheet.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
     MatIconModule,
     MatTooltipModule,
     CoreModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
