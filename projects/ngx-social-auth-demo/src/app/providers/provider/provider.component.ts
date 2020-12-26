@@ -12,7 +12,9 @@ export class ProviderComponent {
 
   @Input() type: NgxSocialAuthProviderType | null = null;
 
-  @Input() isAuthorized: boolean | null = null;
+  @Input() isAuthorized = false;
+
+  @Input() isPending = true;
 
   @Output() signIn = new EventEmitter<void>();
 

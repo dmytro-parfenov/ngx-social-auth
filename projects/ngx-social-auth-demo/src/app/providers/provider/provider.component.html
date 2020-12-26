@@ -7,7 +7,7 @@
     <div class="description">
       <div class="name">{{name}}</div>
       <div class="status">
-        <span class="pending" *ngIf="false; else loaded">pending</span>
+        <span class="pending" *ngIf="isPending; else loaded">pending</span>
 
         <ng-template #loaded>
           <span class="authorized" *ngIf="isAuthorized; else notAuthorized">authorized</span>
@@ -21,16 +21,20 @@
 
   <div class="actions">
     <button mat-button
+            [disabled]="isPending"
             (click)="onSignIn()"
             *ngIf="!isAuthorized; else authorized">SIGN IN</button>
 
     <ng-template #authorized>
       <button mat-button
+              [disabled]="isPending"
               (click)="onSignOut()">SIGN OUT</button>
       <button mat-mini-fab
               color="primary"
+              [disabled]="isPending"
               matTooltip="Show auth response"
               matTooltipPosition="above"
+              [matTooltipDisabled]="isPending"
               (click)="onShowAuthResponse()">
         <mat-icon >code</mat-icon>
       </button>

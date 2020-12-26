@@ -1,6 +1,7 @@
 <app-provider *ngFor="let type of providerTypes; trackBy: trackProviderTypes"
               [type]="type"
-              [isAuthorized]="authorizedProviders.has(type)"
+              [isAuthorized]="isAuthorized(type)"
+              [isPending]="isPending(type)"
               (signIn)="onSignIn(type)"
               (signOut)="onSignOut(type)"
               (showAuthResponse)="showAuthResponse(type)"></app-provider>
