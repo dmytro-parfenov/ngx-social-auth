@@ -12,7 +12,7 @@ import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
 })
 export class AuthResponseBottomSheetComponent {
 
-  get authResponse(): NgxSocialAuthResponse {
+  get authResponse(): NgxSocialAuthResponse | null {
     return this.data?.authResponse ?? null;
   }
 

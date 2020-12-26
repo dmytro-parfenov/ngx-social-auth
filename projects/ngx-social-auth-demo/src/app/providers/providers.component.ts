@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {NgxSocialAuthProviderType, NgxSocialAuthResponse, NgxSocialAuthService} from 'ngx-social-auth2';
 import {authModuleConfig} from '../auth-module-config';
 import {Observable, Subject, throwError} from 'rxjs';
@@ -23,7 +23,8 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
   constructor(private readonly ngxSocialAuthService: NgxSocialAuthService,
               private readonly changeDetectorRef: ChangeDetectorRef,
-              private readonly matBottomSheet: MatBottomSheet) { }
+              private readonly matBottomSheet: MatBottomSheet,
+              private readonly ngZone: NgZone) { }
 
   ngOnInit(): void {
     this.loadState();
@@ -72,17 +73,19 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   private onSignOutSuccess(type: NgxSocialAuthProviderType): void {
-    this.authorizedProviders.delete(type);
+    this.ngZone.run(() => {
+      this.authorizedProviders.delete(type);
 
-    this.changeDetectorRef.markForCheck();
-    this.changeDetectorRef.detectChanges();
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   private onAuthSuccess(type: NgxSocialAuthProviderType, authResponse: NgxSocialAuthResponse): void {
-    this.authorizedProviders.set(type, authResponse);
+    this.ngZone.run(() => {
+      this.authorizedProviders.set(type, authResponse);
 
-    this.changeDetectorRef.markForCheck();
-    this.changeDetectorRef.detectChanges();
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   private createProviderTypes(): NgxSocialAuthProviderType[] {
