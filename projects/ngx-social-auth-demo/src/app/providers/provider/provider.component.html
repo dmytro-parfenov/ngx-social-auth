@@ -7,7 +7,14 @@
     <div class="description">
       <div class="name">{{name}}</div>
       <div class="status">
-        <span *ngIf="isAuthorized">authorized</span>
+        <span class="pending" *ngIf="false; else loaded">pending</span>
+
+        <ng-template #loaded>
+          <span class="authorized" *ngIf="isAuthorized; else notAuthorized">authorized</span>
+          <ng-template #notAuthorized>
+            <span class="not-authorized">not authorized</span>
+          </ng-template>
+        </ng-template>
       </div>
     </div>
   </div>

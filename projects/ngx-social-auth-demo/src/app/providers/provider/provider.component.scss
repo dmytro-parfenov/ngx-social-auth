@@ -38,13 +38,55 @@ section {
 
       .status {
         span {
+          $text-color: #ffffff;
+
           font-size: 12px;
           animation: fade-in 0.5s ease-in;
-          color: #ffffff;
+          color: $text-color;
           padding: 5px 10px;
           border-radius: 2em;
-          background: mat-color(mat-palette($mat-green), A400);
           font-weight: 500;
+
+          &.authorized {
+            background: mat-color(mat-palette($mat-green), A400);
+          }
+
+          &.not-authorized {
+            background: mat-color(mat-palette($mat-red), 500);
+          }
+
+          &.pending {
+            background: mat-color(mat-palette($mat-grey), 400);
+            padding-right: 16px;
+
+            &:after {
+              content: '.';
+              animation-duration: 2s;
+              animation-iteration-count: infinite;
+              animation-name: dot_display;
+            }
+
+            @keyframes dot_display {
+              0%,
+              20% {
+                color: transparent;
+              }
+
+              40% {
+                color: $text-color;
+                text-shadow: 3px 0 0 transparent, 6px 0 0 transparent;
+              }
+
+              60% {
+                text-shadow: 3px 0 0 $text-color, 6px 0 0 transparent;
+              }
+
+              80%,
+              100% {
+                text-shadow: 3px 0 0 $text-color, 6px 0 0 $text-color;
+              }
+            }
+          }
         }
       }
     }
