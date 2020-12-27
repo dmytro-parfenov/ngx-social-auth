@@ -1,7 +1,7 @@
 {
   "name": "ngx-social-auth2",
   "description": "The Angular library provides opportunity to authenticate users by using social identity providers",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "keywords": [
     "angular",
     "ngx",
