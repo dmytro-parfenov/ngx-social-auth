@@ -9,4 +9,4 @@
 - Go to `cd dist/ngx-social-auth2` and run `npm publish` for publish library to npm registry
 - Run `build:demo:prod` to build demo app will be stored in `dist/ngx-social-auth-demo`
 - Add version tag for the appropriate commit with actual demo app. Example `demo-0.0.1`
-- Run `deploy:demo:firebase` to deploy the demo on firebase 
+- Run `deploy:demo:firebase` to deploy the demo on firebase project `ngx-social-auth2`
