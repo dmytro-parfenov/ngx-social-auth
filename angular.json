@@ -148,9 +148,6 @@
                   "maximumError": "10kb"
                 }
               ]
-            },
-            "gh-pages": {
-              "deployUrl": "https://dmytro-parfenov.github.io/ngx-social-auth-demo/"
             }
           }
         },
@@ -216,5 +213,5 @@
       }
     }
   },
-  "defaultProject": "ngx-social-auth"
+  "defaultProject": "ngx-social-auth-demo"
 }

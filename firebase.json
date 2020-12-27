@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/ngx-social-auth-demo",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
