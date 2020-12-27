@@ -5,7 +5,7 @@ import {defer, Observable, throwError} from 'rxjs';
 import {catchError, finalize} from 'rxjs/operators';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {AuthResponseBottomSheetComponent} from '../shared/auth-response-bottom-sheet/auth-response-bottom-sheet.component';
-import {AppAuthResponseBottomSheetData} from '../shared/auth-response-bottom-sheet/app-auth-response-bottom-sheet-data';
+import {AuthResponseBottomSheetData} from '../shared/auth-response-bottom-sheet/auth-response-bottom-sheet-data';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -60,7 +60,7 @@ export class ProvidersComponent implements OnInit {
       return;
     }
 
-    this.matBottomSheet.open<AuthResponseBottomSheetComponent, AppAuthResponseBottomSheetData>(
+    this.matBottomSheet.open<AuthResponseBottomSheetComponent, AuthResponseBottomSheetData>(
       AuthResponseBottomSheetComponent,
       {data: {providerType, authResponse}}
     );

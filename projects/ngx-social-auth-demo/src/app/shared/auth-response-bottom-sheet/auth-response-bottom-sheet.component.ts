@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {NgxSocialAuthProviderType, NgxSocialAuthResponse} from 'ngx-social-auth2';
-import {AppAuthResponseBottomSheetData} from './app-auth-response-bottom-sheet-data';
+import {AuthResponseBottomSheetData} from './auth-response-bottom-sheet-data';
 import {ProviderNameService} from '../../core/provider-name.service';
 import {MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
 
@@ -24,7 +24,7 @@ export class AuthResponseBottomSheetComponent {
     return this.type ? this.providerNameService.resolve(this.type) : '-';
   }
 
-  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) private readonly data: AppAuthResponseBottomSheetData | null,
+  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) private readonly data: AuthResponseBottomSheetData | null,
               private readonly providerNameService: ProviderNameService) {}
 
 }
