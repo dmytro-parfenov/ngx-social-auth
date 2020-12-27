@@ -8,7 +8,9 @@ The Angular library provides opportunity to authenticate users by using social i
 - [Facebook](https://developers.facebook.com/docs/javascript)
 - [Microsoft](https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/)
 
-[Demo](https://ngx-social-auth2.web.app/)
+## Demo
+
+[ngx-social-auth2](https://ngx-social-auth2.web.app/)
 
 ## Install
 
