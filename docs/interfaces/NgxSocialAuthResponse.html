@@ -134,7 +134,7 @@ import {NgxSocialAuthProviderType} from &#x27;../social-auth-provider-type.enum&
  * Represents an object contains auth response
  */
 export interface NgxSocialAuthResponse&lt;K extends NgxSocialAuthProviderType &#x3D; NgxSocialAuthProviderType&gt; {
-  providerResponse: SocialAuthResponseMap[K];
+  readonly providerResponse: SocialAuthResponseMap[K];
 }
 </code></pre>
     </div>
