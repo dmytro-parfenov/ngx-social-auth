@@ -15,6 +15,7 @@ import {authModuleConfig} from './auth-module-config';
 import {AuthResponseBottomSheetComponent} from './shared/auth-response-bottom-sheet/auth-response-bottom-sheet.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {ToastrModule} from 'ngx-toastr';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -24,17 +25,18 @@ import {ToastrModule} from 'ngx-toastr';
     ProvidersComponent,
     AuthResponseBottomSheetComponent
   ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    NgxSocialAuthModule.forRoot(authModuleConfig),
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    CoreModule,
-    MatBottomSheetModule,
-    ToastrModule.forRoot()
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        BrowserModule,
+        NgxSocialAuthModule.forRoot(authModuleConfig),
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+        CoreModule,
+        MatBottomSheetModule,
+        ToastrModule.forRoot(),
+        MatToolbarModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
