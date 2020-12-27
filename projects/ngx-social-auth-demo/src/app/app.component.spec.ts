@@ -1,5 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
+import {Component} from '@angular/core';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
+@Component({selector: 'app-providers', template: ''})
+class ProvidersStubComponent {}
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -7,7 +12,8 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AppComponent ]
+      imports: [MatToolbarModule],
+      declarations: [ AppComponent, ProvidersStubComponent ]
     }).compileComponents();
   });
 
