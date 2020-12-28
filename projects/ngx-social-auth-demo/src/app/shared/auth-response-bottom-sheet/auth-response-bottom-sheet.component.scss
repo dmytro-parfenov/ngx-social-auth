@@ -3,7 +3,10 @@
 header {
   display: flex;
   align-items: center;
-  gap: 15px;
+
+  .icon {
+    margin-right: 15px;
+  }
 }
 
 pre {
