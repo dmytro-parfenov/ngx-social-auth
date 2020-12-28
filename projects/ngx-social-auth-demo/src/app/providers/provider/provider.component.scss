@@ -48,7 +48,7 @@ section {
           font-weight: 500;
 
           &.authorized {
-            background: mat-color(mat-palette($mat-green), A400);
+            background: mat-color(mat-palette($mat-green), 400);
           }
 
           &.not-authorized {
