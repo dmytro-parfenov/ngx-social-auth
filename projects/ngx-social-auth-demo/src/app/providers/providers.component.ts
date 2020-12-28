@@ -45,7 +45,9 @@ export class ProvidersComponent implements OnInit {
   }
 
   onSignIn(type: NgxSocialAuthProviderType): void {
-    const request$ = this.ngxSocialAuthService.signIn(type).pipe(
+    const options = this.resolveSignInOptions(type);
+
+    const request$ = this.ngxSocialAuthService.signIn(type, options).pipe(
       catchError(this.handleError.bind(this))
     );
 
@@ -72,6 +74,15 @@ export class ProvidersComponent implements OnInit {
     );
 
     this.pendingForObservable(request$, type).subscribe(() => this.onSignOutSuccess(type));
+  }
+
+  private resolveSignInOptions(type: NgxSocialAuthProviderType): any {
+    switch (type) {
+      case NgxSocialAuthProviderType.Microsoft:
+        return {prompt: 'select_account'};
+    }
+
+    return null;
   }
 
   private loadState(): void {

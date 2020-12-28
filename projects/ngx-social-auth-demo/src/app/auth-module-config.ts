@@ -10,7 +10,8 @@ export const authModuleConfig: NgxSocialAuthModuleConfig = {
       appId: environment.facebookAppId, status: true, version: 'v9.0'
     }),
     new NgxSocialAuthProvider(NgxSocialAuthProviderType.Microsoft, {
-      auth: {clientId: environment.microsoftClientId, postLogoutRedirectUri: environment.microsoftPostLogoutRedirect}
+      auth: {clientId: environment.microsoftClientId, postLogoutRedirectUri: environment.microsoftPostLogoutRedirect},
+      cache: {cacheLocation: 'localStorage'}
     })
   ]
 };
