@@ -7,7 +7,5 @@
 - Add version tag for the commit with new docs site. Example `docs-0.0.1`
 - Add version tag for the appropriate commit with actual demo app. Example `demo-0.0.1`
 - Push all commits and tags to the `master` branch  
-- Run `build:lib:prod` to build library will be stored in `dist/ngx-social-auth2`
-- Go to `cd dist/ngx-social-auth2` and run `npm publish` for publish library to npm registry
-- Run `build:demo:prod` to build demo app will be stored in `dist/ngx-social-auth-demo`
-- Run `deploy:demo:firebase` to deploy the demo on firebase project `ngx-social-auth2`
+- Run `publish:lib` for publishing library to npm registry
+- Run `deploy:demo` for publishing demo to firebase

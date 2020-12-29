@@ -34,11 +34,12 @@
     "lint:demo": "ng run ngx-social-auth-demo:lint",
     "build:lib:prod": "npm run test:lib && ng run ngx-social-auth:build:production",
     "build:demo:prod": "npm run build:lib:prod && npm run test:demo && ng run ngx-social-auth-demo:build:production",
-    "deploy:demo:firebase": "firebase deploy",
     "docs:lib": "npm run test:lib && npm run compodoc --prefix projects/ngx-social-auth",
     "lib:version:major": "npm run test:lib && npm run version:major --prefix projects/ngx-social-auth",
     "lib:version:minor": "npm run test:lib && npm run version:minor --prefix projects/ngx-social-auth",
-    "lib:version:patch": "npm run test:lib && npm run version:patch --prefix projects/ngx-social-auth"
+    "lib:version:patch": "npm run test:lib && npm run version:patch --prefix projects/ngx-social-auth",
+    "publish:lib": "npm run build:lib:prod && npm run publish --prefix dist/ngx-social-auth",
+    "deploy:demo": "npm run build:demo:prod && firebase deploy"
   },
   "private": true,
   "dependencies": {
