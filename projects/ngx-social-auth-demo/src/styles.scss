@@ -3,4 +3,8 @@
 
 @import '~ngx-toastr/toastr';
 
+.toast-container .ngx-toastr {
+  box-shadow: unset !important;
+}
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: 320px; }
