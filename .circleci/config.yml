@@ -1,25 +1,91 @@
 version: 2.1
-jobs:
-  lint-lib:
-    working_directory: ~/ngx-social-auth
+
+executors:
+  default-executor:
     docker:
       - image: circleci/node:10-browsers
+    working_directory: ~/ngx-social-auth
+
+jobs:
+  setup:
+    executor: default-executor
     steps:
       - checkout
       - restore_cache:
-          key: ngx-social-auth-{{ checksum "package-lock.json" }}
+          key: ngx-social-auth-${CIRCLE_BRANCH}-{{ checksum "package-lock.json" }}
       - run:
           name: Install dependencies
           command: npm install
       - save_cache:
-          key: ngx-social-auth-{{ checksum "package-lock.json" }}
+          key: ngx-social-auth-${CIRCLE_BRANCH}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
+  lint-lib:
+    executor: default-executor
+    steps:
       - run:
           name: Lint library
           command:  npm run lint:lib
+  lint-demo:
+    executor: default-executor
+    steps:
+      - run:
+          name: Lint demo
+          command: npm run lint:demo
+  test-lib:
+    executor: default-executor
+    steps:
+      - run:
+          name: Test library
+          command: npm run test:lib:ci
+  test-demo:
+    executor: default-executor
+    steps:
+      - run:
+          name: Test demo
+          command: npm run test:demo:ci
+  build-lib:
+    executor: default-executor
+    steps:
+      - run:
+          name: Build library
+          command: npm run build:lib:prod
+  build-demo:
+    executor: default-executor
+    steps:
+      - run:
+          name: Build demo
+          command: npm run build:demo:prod
+  build-docs:
+    executor: default-executor
+    steps:
+      - run:
+          name: Build docs
+          command: npm run docs:lib
+
 
 workflows:
-  lint:
+  default_workflow:
     jobs:
-      - lint-lib
+      - setup
+      - lint-lib:
+          requires:
+            - setup
+      - lint-demo:
+          requires:
+            - setup
+      - test-lib:
+          requires:
+            - setup
+      - build-lib:
+          requires:
+            - setup
+      - test-demo:
+          requires:
+            - build-lib
+      - build-demo:
+          requires:
+            - build-lib
+      - build-docs:
+          requires:
+            - setup
