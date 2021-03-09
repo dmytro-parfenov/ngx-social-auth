@@ -40,8 +40,10 @@
     "lib:version:major": "npm run version:major --prefix projects/ngx-social-auth",
     "lib:version:minor": "npm run version:minor --prefix projects/ngx-social-auth",
     "lib:version:patch": "npm run version:patch --prefix projects/ngx-social-auth",
-    "publish:lib": "npm run publish --prefix dist/ngx-social-auth",
-    "deploy:demo": "firebase deploy"
+    "prepublish:lib": "npm run lint:lib && npm run test:lib:ci && npm run build:lib:prod",
+    "predeploy:demo": "npm run prepublish:lib && npm run lint:demo && npm run test:demo:ci && npm run build:demo:prod",
+    "publish:lib": "npm run prepublish:lib && npm run publish --prefix dist/ngx-social-auth",
+    "deploy:demo": "npm run predeploy:demo && firebase deploy"
   },
   "private": true,
   "dependencies": {
