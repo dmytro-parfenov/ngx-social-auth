@@ -2,11 +2,13 @@
 
 The project contains Angular library [ngx-social-auth2](https://www.npmjs.com/package/ngx-social-auth2) that provides opportunity to authenticate users by using social identity providers.
 
+[![CircleCI](https://img.shields.io/circleci/build/github/dmytro-parfenov/ngx-social-auth)](https://app.circleci.com/pipelines/github/dmytro-parfenov/ngx-social-auth?branch=master)
+
 ## Supported providers
- 
- - [Google](https://developers.google.com/identity/sign-in/web/reference)
- - [Facebook](https://developers.facebook.com/docs/javascript)
- - [Microsoft](https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/)
+
+- [Google](https://developers.google.com/identity/sign-in/web/reference)
+- [Facebook](https://developers.facebook.com/docs/javascript)
+- [Microsoft](https://azuread.github.io/microsoft-authentication-library-for-js/ref/msal-browser/)
 
 # Getting Started
 
@@ -14,8 +16,8 @@ The project contains Angular library [ngx-social-auth2](https://www.npmjs.com/pa
 
 Repository contains two projects
 
- - [ngx-social-auth](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth) - library source code
- - [ngx-social-auth-demo](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth-demo) - used for testing the library and provides demo application 
+- [ngx-social-auth](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth) - library source code
+- [ngx-social-auth-demo](https://github.com/dmytro-parfenov/ngx-social-auth/tree/master/projects/ngx-social-auth-demo) - used for testing the library and provides demo application
 
 
 ## Development
