@@ -1,5 +1,6 @@
 version: 2.1
 
+# Default workspace location
 workspace_location: &workspace_location ~/
 
 executors:
@@ -9,7 +10,7 @@ executors:
     working_directory: ~/ngx-social-auth
 
 commands:
-  custom_attach_workspace:
+  default_attach_workspace:
     description: Attach workspace at a predefined location
     steps:
       - attach_workspace:
@@ -21,12 +22,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: ngx-social-auth-{{ CIRCLE_BRANCH }}-{{ checksum "package-lock.json" }}
+          key: ngx-social-auth-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: Install dependencies
           command: npm install
       - save_cache:
-          key: ngx-social-auth-{{ CIRCLE_BRANCH }}-{{ checksum "package-lock.json" }}
+          key: ngx-social-auth-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
       - persist_to_workspace:
@@ -36,35 +37,35 @@ jobs:
   lint-lib:
     executor: default-executor
     steps:
-      - custom_attach_workspace
+      - default_attach_workspace
       - run:
           name: Lint library
           command:  npm run lint:lib
   lint-demo:
     executor: default-executor
     steps:
-      - custom_attach_workspace
+      - default_attach_workspace
       - run:
           name: Lint demo
           command: npm run lint:demo
   test-lib:
     executor: default-executor
     steps:
-      - custom_attach_workspace
+      - default_attach_workspace
       - run:
           name: Test library
           command: npm run test:lib:ci
   test-demo:
     executor: default-executor
     steps:
-      - custom_attach_workspace
+      - default_attach_workspace
       - run:
           name: Test demo
           command: npm run test:demo:ci
   build-lib:
     executor: default-executor
     steps:
-      - custom_attach_workspace
+      - default_attach_workspace
       - run:
           name: Build library
           command: npm run build:lib:prod
@@ -75,14 +76,14 @@ jobs:
   build-demo:
     executor: default-executor
     steps:
-      - custom_attach_workspace
+      - default_attach_workspace
       - run:
           name: Build demo
           command: npm run build:demo:prod
   build-docs:
     executor: default-executor
     steps:
-      - custom_attach_workspace
+      - default_attach_workspace
       - run:
           name: Build docs
           command: npm run docs:lib
