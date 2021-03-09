@@ -1,0 +1,25 @@
+version: 2.1
+jobs:
+  lint-lib:
+    working_directory: ~/ngx-social-auth
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: ngx-social-auth-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          key: ngx-social-auth-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
+      - run:
+          name: Lint library
+          command:  npm run lint:lib
+
+workflows:
+  lint:
+    jobs:
+      - lint-lib
